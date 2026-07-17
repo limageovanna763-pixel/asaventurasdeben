@@ -78,7 +78,7 @@
     font-family: 'Baloo 2', sans-serif;
   }
 
-  /* ---- Barra de Abas Superior (Escondida no Menu Principal) ---- */
+  /* ---- Barra de Abas Superior ---- */
   .nav-tabs {
     display: flex;
     gap: 6px;
@@ -167,9 +167,7 @@
     justify-content: space-between;
     cursor: pointer;
     color: white;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.1s;
+    box-shadow: transform 0.1s;
   }
   .card-acesso:active { transform: translateY(4px); }
   
@@ -178,21 +176,20 @@
   .card-acesso p { margin: 2px 0 0; font-weight: 700; font-size: 14px; opacity: 0.9; }
   .card-acesso .ico { font-size: 46px; }
 
-  /* Cores Customizadas dos Mundos */
   .m-abc { background: var(--forest); box-shadow: 0 8px 0 var(--forest-dark); }
   .m-num { background: var(--berry); box-shadow: 0 8px 0 var(--berry-dark); }
   .m-colors { background: var(--purple); box-shadow: 0 8px 0 var(--purple-dark); }
   .m-shapes { background: var(--teal); box-shadow: 0 8px 0 var(--teal-dark); }
 
-  /* ---- TELA: Grelha do ABC ---- */
-  .grid-abc {
+  /* ---- GRIDS (ABC e NUMBERS) ---- */
+  .grid-comum {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     animation: fadeIn 0.3s ease-out;
   }
   
-  .btn-letra {
+  .btn-item {
     background: var(--card);
     border: 3px solid var(--outline);
     border-radius: 22px;
@@ -204,11 +201,10 @@
     box-shadow: 0 6px 0 var(--outline);
     transition: transform 0.1s;
   }
-  .btn-letra:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--outline); }
+  .btn-item:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--outline); }
 
-  /* ---- TELA: Detalhes da Letra ---- */
+  /* ---- VISUALIZAÇÕES DE DETALHES ---- */
   .hidden { display: none !important; }
-  
   .view-detalhes { animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -226,38 +222,52 @@
   }
   .btn-voltar:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--honey-dark); }
 
-  .letra-gigante { font-family: 'Baloo 2', sans-serif; font-size: 68px; font-weight: 800; margin: 0; line-height: 1; }
+  .item-gigante { font-family: 'Baloo 2', sans-serif; font-size: 72px; font-weight: 800; margin: 0; line-height: 1; }
 
-  /* Cards de Palavras Estilo Adesivo */
+  /* Cards de Palavras */
   .container-palavras { display: flex; flex-direction: column; gap: 14px; }
   
   .card-palavra {
     background: var(--card); border: 3px solid var(--outline); border-radius: 24px;
     padding: 14px 20px; display: flex; align-items: center; gap: 18px; cursor: pointer;
-    box-shadow: 0 6px 0 var(--outline); transition: transform 0.1s; position: relative;
+    box-shadow: 0 6px 0 var(--outline); position: relative;
   }
   .card-palavra:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--outline); }
-  
   .card-palavra.animar .emoji { animation: popEmoji 0.4s ease; }
   @keyframes popEmoji { 0% { transform: scale(1); } 50% { transform: scale(1.3) rotate(-8deg); } 100% { transform: scale(1); } }
-
   .card-palavra .emoji { font-size: 56px; display: inline-block; }
+  
   .textos-palavra { text-align: left; display: flex; flex-direction: column; gap: 2px; }
   .palavra-en { font-family: 'Baloo 2', sans-serif; font-size: 26px; font-weight: 800; }
   .palavra-pt { font-size: 17px; font-weight: 700; color: #6E5A4E; }
   .flag { margin-right: 6px; font-size: 16px; }
 
-  /* ---- Telas de Placeholder (Futuras Abas) ---- */
-  .tela-placeholder {
-    background: white; border: 4px solid var(--outline); border-radius: 28px;
-    padding: 40px 20px; box-shadow: 0 8px 0 var(--outline);
+  /* ---- Painel Lúdico de Quantidades (Numbers) ---- */
+  .box-quantidades {
+    background: white; border: 3px solid var(--outline); border-radius: 28px;
+    padding: 24px 16px; box-shadow: 0 6px 0 var(--outline);
   }
-  .tela-placeholder h3 { font-family: 'Baloo 2', sans-serif; font-size: 32px; margin: 10px 0; }
+  .grid-objetos {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 16px;
+  }
+  .objeto-contável {
+    font-size: 48px; cursor: pointer; display: inline-block;
+    transition: transform 0.15s; user-select: none;
+  }
+  .objeto-contável:active { transform: scale(1.4); }
+  .objeto-contável.contado { animation: popEmoji 0.3s ease; }
 
   .dica {
     font-weight: 800; color: #8A7A5F; margin: 12px 0; font-size: 14px;
     background: rgba(226, 207, 180, 0.3); padding: 6px 12px; border-radius: 99px; display: inline-block;
   }
+
+  /* ---- Telas de Placeholder ---- */
+  .tela-placeholder {
+    background: white; border: 4px solid var(--outline); border-radius: 28px;
+    padding: 40px 20px; box-shadow: 0 8px 0 var(--outline);
+  }
+  .tela-placeholder h3 { font-family: 'Baloo 2', sans-serif; font-size: 32px; margin: 10px 0; }
 
   /* ---- Rodapé YouTube ---- */
   .yt-link {
@@ -271,13 +281,13 @@
 <body>
 
 <div class="wrap">
-  <!-- Cabeçalho Fixo -->
+  <!-- Cabeçalho -->
   <header>
     <h1>As Aventuras de Ben 🐻</h1>
     <p class="subtitle">Play &amp; Learn • English &amp; Português</p>
   </header>
 
-  <!-- Abas Superiores de Navegação (Escondidas na Home) -->
+  <!-- Abas Superiores de Navegação -->
   <div id="topTabs" class="nav-tabs hidden">
     <button class="tab-btn tab-home" onclick="mudarMundo('home')">🏠 HOME</button>
     <button class="tab-btn tab-abc" onclick="mudarMundo('abc')">🔤 ABC</button>
@@ -286,7 +296,7 @@
     <button class="tab-btn tab-shapes" onclick="mudarMundo('shapes')">🔷 SHAPES</button>
   </div>
 
-  <!-- Personagem Ben & Balão de Diálogo -->
+  <!-- Balão e Ursinho Ben -->
   <div class="bear-box">
     <svg class="bear-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
       <circle cx="30" cy="26" r="16" fill="#B5793E"/><circle cx="90" cy="26" r="16" fill="#B5793E"/>
@@ -302,69 +312,61 @@
   <!-- ==================== TELA 1: MENU DE ACESSOS ==================== -->
   <div id="telaHome" class="menu-acessos">
     <button class="card-acesso m-abc" onclick="mudarMundo('abc')">
-      <div class="info-acesso">
-        <h2>ABC WORLD</h2>
-        <p>Explore as letras e palavras</p>
-      </div>
-      <span class="ico">🔤</span>
+      <div class="info-acesso"><h2>ABC WORLD</h2><p>Explore as letras e palavras</p></div><span class="ico">🔤</span>
     </button>
-    
     <button class="card-acesso m-num" onclick="mudarMundo('num')">
-      <div class="info-acesso">
-        <h2>NUMBERS</h2>
-        <p>Aprenda a contar brincando</p>
-      </div>
-      <span class="ico">🔢</span>
+      <div class="info-acesso"><h2>NUMBERS</h2><p>Aprenda a contar brincando</p></div><span class="ico">🔢</span>
     </button>
-    
     <button class="card-acesso m-colors" onclick="mudarMundo('colors')">
-      <div class="info-acesso">
-        <h2>COLORS</h2>
-        <p>Descubra o mundo colorido</p>
-      </div>
-      <span class="ico">🎨</span>
+      <div class="info-acesso"><h2>COLORS</h2><p>Descubra o world colorido</p></div><span class="ico">🎨</span>
     </button>
-    
     <button class="card-acesso m-shapes" onclick="mudarMundo('shapes')">
-      <div class="info-acesso">
-        <h2>SHAPES</h2>
-        <p>Formas geométricas divertidas</p>
-      </div>
-      <span class="ico">🔷</span>
+      <div class="info-acesso"><h2>SHAPES</h2><p>Formas geométricas divertidas</p></div><span class="ico">🔷</span>
     </button>
   </div>
 
   <!-- ==================== TELA 2: MUNDO DO ABC ==================== -->
-  <div id="telaAbc" class="grid-abc hidden"></div>
+  <div id="telaAbc" class="grid-comum hidden"></div>
 
   <!-- ==================== TELA 3: DETALHES DO ABC ==================== -->
   <div id="telaDetalhesAbc" class="view-detalhes hidden">
     <div class="topo-detalhes">
       <button class="btn-voltar" onclick="mudarMundo('abc')">🔙 Voltar</button>
-      <div class="letra-gigante" id="letraTitulo">A</div>
+      <div class="item-gigante" id="letraTitulo">A</div>
       <div style="width: 76px;"></div>
     </div>
     <div class="dica">Toque para ouvir o Ben falar! 🔊</div>
     <div class="container-palavras" id="listaPalavras"></div>
   </div>
 
-  <!-- ==================== TELAS DE PLACEHOLDER (FUTURAS) ==================== -->
-  <div id="telaNum" class="tela-placeholder hidden">
-    <span style="font-size:60px;">🔢</span>
-    <h3 style="color:var(--berry);">NUMBERS WORLD</h3>
-    <p>O mundo dos números está sendo preparado pelo Ben! Em breve...</p>
+  <!-- ==================== TELA 4: MUNDO DOS NÚMEROS ==================== -->
+  <div id="telaNum" class="grid-comum hidden"></div>
+
+  <!-- ==================== TELA 5: DETALHES DOS NÚMEROS ==================== -->
+  <div id="telaDetalhesNum" class="view-detalhes hidden">
+    <div class="topo-detalhes">
+      <button class="btn-voltar" onclick="mudarMundo('num')">🔙 Voltar</button>
+      <div class="item-gigante" id="numTitulo">1</div>
+      <div style="width: 76px;"></div>
+    </div>
+    
+    <div class="box-quantidades">
+      <div class="textos-palavra" style="text-align: center; justify-content: center; align-items: center; margin-bottom: 10px;">
+        <span class="palavra-en" id="numEn" style="color: var(--berry); font-size: 32px;">One</span>
+        <span class="palavra-pt" id="numPt" style="font-size: 20px;">Um</span>
+      </div>
+      <div class="dica">Toque nos objetos para contar! 🍎</div>
+      <div class="grid-objetos" id="gridObjetosContagem"></div>
+    </div>
   </div>
 
+  <!-- ==================== TELAS DE PLACEHOLDER (FUTURAS) ==================== -->
   <div id="telaColors" class="tela-placeholder hidden">
-    <span style="font-size:60px;">🎨</span>
-    <h3 style="color:var(--purple);">COLORS WORLD</h3>
-    <p>Prepare as tintas! O mundo das cores chega em breve...</p>
+    <span style="font-size:60px;">🎨</span><h3 style="color:var(--purple);">COLORS WORLD</h3><p>O mundo das cores chega em breve...</p>
   </div>
 
   <div id="telaShapes" class="tela-placeholder hidden">
-    <span style="font-size:60px;">🔷</span>
-    <h3 style="color:var(--teal);">SHAPES WORLD</h3>
-    <p>Quadrados, círculos e muito mais estão chegando por aqui!</p>
+    <span style="font-size:60px;">🔷</span><h3 style="color:var(--teal);">SHAPES WORLD</h3><p>Formas geométricas divertidas estão chegando!</p>
   </div>
 
   <!-- Link do YouTube -->
@@ -374,7 +376,7 @@
 </div>
 
 <script>
-// Banco de Dados das Palavras do ABC
+// BANCO DE DADOS: ABC
 const ALFABETO_DADOS = {
   A: [{ en: "Apple", pt: "Maçã", emoji: "🍎" }, { en: "Alligator", pt: "Jacaré", emoji: "🐊" }, { en: "Astronaut", pt: "Astronauta", emoji: "🧑‍🚀" }],
   B: [{ en: "Ball", pt: "Bola", emoji: "⚽" }, { en: "Bear", pt: "Urso", emoji: "🐻" }, { en: "Banana", pt: "Banana", emoji: "🍌" }],
@@ -404,22 +406,35 @@ const ALFABETO_DADOS = {
   Z: [{ en: "Zebra", pt: "Zebra", emoji: "🦓" }, { en: "Zipper", pt: "Zíper", emoji: "🤐" }, { en: "Zoo", pt: "Zoológico", emoji: "🏡" }]
 };
 
+// BANCO DE DADOS: NUMBERS (1 a 10 com Emojis Temáticos)
+const NUMEROS_DADOS = {
+  "1": { en: "One", pt: "Um", emoji: "🦁" },
+  "2": { en: "Two", pt: "Dois", emoji: "🎈" },
+  "3": { en: "Three", pt: "Três", emoji: "🍓" },
+  "4": { en: "Four", pt: "Quatro", emoji: "🚗" },
+  "5": { en: "Five", pt: "Cinco", emoji: "⭐" },
+  "6": { en: "Six", pt: "Seis", emoji: "🐠" },
+  "7": { en: "Seven", pt: "Sete", emoji: "🍎" },
+  "8": { en: "Eight", pt: "Oito", emoji: "🍪" },
+  "9": { en: "Nine", pt: "Nove", emoji: "🦋" },
+  "10": { en: "Ten", pt: "Dez", emoji: "🐝" }
+};
+
 const CORES = ["#5B8C5A", "#E8604E", "#8B639B", "#3E7C74"];
 const bubbleBen = document.getElementById('bubbleBen');
 
-// Sistema Central de Troca de Telas (Mundos)
 function mudarMundo(mundo) {
   speechSynthesis.cancel();
   
-  // Esconde todas as telas
+  // Esconde todas as telas do sistema
   document.getElementById('telaHome').classList.add('hidden');
   document.getElementById('telaAbc').classList.add('hidden');
   document.getElementById('telaDetalhesAbc').classList.add('hidden');
   document.getElementById('telaNum').classList.add('hidden');
+  document.getElementById('telaDetalhesNum').classList.add('hidden');
   document.getElementById('telaColors').classList.add('hidden');
   document.getElementById('telaShapes').classList.add('hidden');
   
-  // Controla a visibilidade das Abas do topo
   if (mundo === 'home') {
     document.getElementById('topTabs').classList.add('hidden');
     bubbleBen.textContent = "Hi! Welcome! Escolha um mundo de aventuras!";
@@ -431,10 +446,10 @@ function mudarMundo(mundo) {
       bubbleBen.textContent = "Welcome to ABC WORLD! Let's explore!";
       document.getElementById('telaAbc').classList.remove('hidden');
     } else if (mundo === 'num') {
-      bubbleBen.textContent = "Welcome to NUMBERS WORLD! Vamos contar?";
+      bubbleBen.textContent = "Welcome to NUMBERS WORLD! Let's count!";
       document.getElementById('telaNum').classList.remove('hidden');
     } else if (mundo === 'colors') {
-      bubbleBen.textContent = "Welcome to COLORS WORLD! Tudo muito colorido!";
+      bubbleBen.textContent = "Welcome to COLORS WORLD! Tudo colorido!";
       document.getElementById('telaColors').classList.remove('hidden');
     } else if (mundo === 'shapes') {
       bubbleBen.textContent = "Welcome to SHAPES WORLD! Formas geométricas!";
@@ -443,17 +458,17 @@ function mudarMundo(mundo) {
   }
 }
 
-// Inicia o Grid de Letras do ABC
+// Inicia Painel Alfabético
 function initAbcGrid() {
   const gridAbc = document.getElementById('telaAbc');
   gridAbc.innerHTML = '';
   Object.keys(ALFABETO_DADOS).forEach((letra, i) => {
     const btn = document.createElement('button');
-    btn.className = 'btn-letra';
+    btn.className = 'btn-item';
     btn.textContent = letra;
     const cor = CORES[i % CORES.length];
     btn.style.color = cor;
-    btn.style.borderColor = cor + "40"; // borda combinando suave
+    btn.style.borderColor = cor + "40";
     btn.onclick = () => verLetra(letra, cor);
     gridAbc.appendChild(btn);
   });
@@ -476,7 +491,7 @@ function verLetra(letra, corDestaque) {
     const card = document.createElement('div');
     card.className = 'card-palavra';
     card.style.borderColor = corDestaque + "60";
-    card.onclick = () => interagirComPalavra(item, card, corDestaque);
+    card.onclick = () => interagirComPalavra(item, card);
 
     card.innerHTML = `
       <span class="emoji">${item.emoji}</span>
@@ -489,20 +504,80 @@ function verLetra(letra, corDestaque) {
   });
 }
 
-async function interagirComPalavra(item, elementoCard, corDestaque) {
+async function interagirComPalavra(item, elementoCard) {
   speechSynthesis.cancel();
-  
   elementoCard.classList.remove('animar');
-  void elementoCard.offsetWidth; // reset anim
+  void elementoCard.offsetWidth;
   elementoCard.classList.add('animar');
   
   bubbleBen.textContent = `${item.en} significa ${item.pt}!`;
-  
   await falarTexto(item.en, 'en-US');
   await new Promise(r => setTimeout(r, 150));
   await falarTexto(item.pt, 'pt-BR');
 }
 
+// ==================== NOVO: MUNDO DOS NÚMEROS ====================
+function initNumbersGrid() {
+  const gridNum = document.getElementById('telaNum');
+  gridNum.innerHTML = '';
+  Object.keys(NUMEROS_DADOS).forEach((num, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-item';
+    btn.textContent = num;
+    const cor = CORES[i % CORES.length];
+    btn.style.color = cor;
+    btn.style.borderColor = cor + "40";
+    btn.onclick = () => verNumero(num, cor);
+    gridNum.appendChild(btn);
+  });
+}
+
+async function verNumero(num, corDestaque) {
+  document.getElementById('telaNum').classList.add('hidden');
+  document.getElementById('telaDetalhesNum').classList.remove('hidden');
+  
+  const numTitulo = document.getElementById('numTitulo');
+  numTitulo.textContent = num;
+  numTitulo.style.color = corDestaque;
+  
+  const dados = NUMEROS_DADOS[num];
+  document.getElementById('numEn').textContent = dados.en;
+  document.getElementById('numEn').style.color = corDestaque;
+  document.getElementById('numPt').textContent = dados.pt;
+  
+  bubbleBen.textContent = `Number ${num}! Let's count!`;
+  
+  // Fala o número principal
+  await falarTexto(num, 'en-US');
+  await new Promise(r => setTimeout(r, 100));
+  await falarTexto(dados.en, 'en-US');
+
+  // Gera os emojis clicáveis para contagem progressiva
+  const gridObjetos = document.getElementById('gridObjetosContagem');
+  gridObjetos.innerHTML = '';
+  
+  const total = parseInt(num);
+  for (let k = 1; k <= total; k++) {
+    const spanObj = document.createElement('span');
+    spanObj.className = 'objeto-contável';
+    spanObj.textContent = dados.emoji;
+    
+    // Ao clicar em cada emoji individual da fila
+    spanObj.onclick = async () => {
+      speechSynthesis.cancel();
+      spanObj.classList.remove('contado');
+      void spanObj.offsetWidth;
+      spanObj.classList.add('contado');
+      
+      bubbleBen.textContent = `Contando... ${k}!`;
+      await falarTexto(k.toString(), 'en-US');
+    };
+    
+    gridObjetos.appendChild(spanObj);
+  }
+}
+
+// Motor de Voz Comum
 function falarTexto(texto, idioma) {
   return new Promise((resolve) => {
     if (!('speechSynthesis' in window)) { resolve(); return; }
@@ -516,8 +591,9 @@ function falarTexto(texto, idioma) {
   });
 }
 
-// Inicializadores
+// Inicializadores Globais
 initAbcGrid();
+initNumbersGrid();
 mudarMundo('home');
 </script>
 </body>
