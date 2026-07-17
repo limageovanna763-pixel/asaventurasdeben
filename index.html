@@ -184,6 +184,17 @@
   .btn-cor:active { transform: scale(0.95); }
   .btn-cor span { font-size: 13px; font-weight: 700; opacity: 0.95; font-family: 'Nunito', sans-serif; }
 
+  /* Botão de Formas */
+  .btn-shape {
+    background: var(--card); border: 3px solid var(--outline); border-radius: 24px; padding: 16px;
+    font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 800; color: var(--teal-dark);
+    cursor: pointer; box-shadow: 0 6px 0 var(--outline); transition: transform 0.1s;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .btn-shape:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--outline); }
+  .btn-shape .shape-draw { font-size: 50px; line-height: 1; }
+  .btn-shape span { font-size: 14px; font-weight: 700; color: #6E5A4E; font-family: 'Nunito', sans-serif; }
+
   /* ---- VISUALIZAÇÕES DE DETALHES ---- */
   .hidden { display: none !important; }
   .view-detalhes { animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -222,7 +233,7 @@
   .palavra-pt { font-size: 17px; font-weight: 700; color: #6E5A4E; }
   .flag { margin-right: 6px; font-size: 16px; }
 
-  /* Box Quantidades (Numbers) */
+  /* Box Quantidades */
   .box-quantidades { background: white; border: 3px solid var(--outline); border-radius: 28px; padding: 24px 16px; box-shadow: 0 6px 0 var(--outline); }
   .grid-objetos { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 16px; }
   .objeto-contável { font-size: 48px; cursor: pointer; display: inline-block; transition: transform 0.15s; user-select: none; }
@@ -233,10 +244,6 @@
     font-weight: 800; color: #8A7A5F; margin: 12px 0; font-size: 14px;
     background: rgba(226, 207, 180, 0.3); padding: 6px 12px; border-radius: 99px; display: inline-block;
   }
-
-  /* ---- Placeholder Formas ---- */
-  .tela-placeholder { background: white; border: 4px solid var(--outline); border-radius: 28px; padding: 40px 20px; box-shadow: 0 8px 0 var(--outline); }
-  .tela-placeholder h3 { font-family: 'Baloo 2', sans-serif; font-size: 32px; margin: 10px 0; }
 
   /* ---- Rodapé YouTube ---- */
   .yt-link {
@@ -328,7 +335,7 @@
     </div>
   </div>
 
-  <!-- ==================== NOVO TELA 6: MUNDO DAS CORES ==================== -->
+  <!-- TELA 6: MUNDO DAS CORES -->
   <div id="telaColors" class="grid-cores hidden"></div>
 
   <!-- TELA 7: DETALHES DAS CORES -->
@@ -342,9 +349,18 @@
     <div class="container-palavras" id="listaObjetosCores"></div>
   </div>
 
-  <!-- TELA PLACEHOLDER: FORMAS -->
-  <div id="telaShapes" class="tela-placeholder hidden">
-    <span style="font-size:60px;">🔷</span><h3 style="color:var(--teal);">SHAPES WORLD</h3><p>Formas geométricas divertidas estão chegando!</p>
+  <!-- ==================== NOVO TELA 8: MUNDO DAS FORMAS ==================== -->
+  <div id="telaShapes" class="grid-cores hidden"></div>
+
+  <!-- TELA 9: DETALHES DAS FORMAS -->
+  <div id="telaDetalhesShapes" class="view-detalhes hidden">
+    <div class="topo-detalhes">
+      <button class="btn-voltar" onclick="mudarMundo('shapes')">🔙 Voltar</button>
+      <div class="item-gigante" id="shapeTitulo">Circle</div>
+      <div style="width: 76px;"></div>
+    </div>
+    <div class="dica">O que tem esse formato? Detetive! 🔍🔊</div>
+    <div class="container-palavras" id="listaObjetosShapes"></div>
   </div>
 
   <!-- Link do YouTube -->
@@ -391,7 +407,7 @@ const NUMEROS_DADOS = {
   "7": { en: "Seven", pt: "Sete", emoji: "🍎" }, "8": { en: "Eight", pt: "Oito", emoji: "🍪" }, "9": { en: "Nine", pt: "Nove", emoji: "🦋" }, "10": { en: "Ten", pt: "Dez", emoji: "🐝" }
 };
 
-// ==================== NOVO BANCO DE DADOS: COLORS ====================
+// BANCO DE DADOS: COLORS
 const CORES_DADOS = {
   Red: { pt: "Vermelho", hex: "#E8604E", bgPastel: "#FFEEEB", objetos: [{ en: "Strawberry", pt: "Morango", emoji: "🍓" }, { en: "Heart", pt: "Coração", emoji: "❤️" }, { en: "Tomato", pt: "Tomate", emoji: "🍅" }] },
   Blue: { pt: "Azul", hex: "#3A7BD5", bgPastel: "#EBF3FF", objetos: [{ en: "Whale", pt: "Baleia", emoji: "🐳" }, { en: "Ocean", pt: "Oceano", emoji: "🌊" }, { en: "Sky", pt: "Céu", emoji: "☁️" }] },
@@ -401,6 +417,14 @@ const CORES_DADOS = {
   Purple: { pt: "Roxo", hex: "#8B639B", bgPastel: "#F6F0F8", objetos: [{ en: "Grapes", pt: "Uvas", emoji: "🍇" }, { en: "Octopus", pt: "Polvo", emoji: "🐙" }, { en: "Magic", pt: "Mágica", emoji: "🔮" }] },
   Pink: { pt: "Rosa", hex: "#E57E9E", bgPastel: "#FFF0F4", objetos: [{ en: "Flamingo", pt: "Flamingo", emoji: "🦩" }, { en: "Ice cream", pt: "Sorvete", emoji: "🍦" }, { en: "Flower", pt: "Flor", emoji: "🌸" }] },
   Brown: { pt: "Marrom", hex: "#7A5230", bgPastel: "#F5ECE6", objetos: [{ en: "Bear", pt: "Urso", emoji: "🐻" }, { en: "Chocolate", pt: "Chocolate", emoji: "🍫" }, { en: "Monkey", pt: "Macaco", emoji: "🐵" }] }
+};
+
+// ==================== NOVO BANCO DE DADOS: SHAPES ====================
+const SHAPES_DADOS = {
+  Circle: { pt: "Círculo", draw: "⚪", cor: "#3E7C74", objetos: [{ en: "Ball", pt: "Bola", emoji: "⚽" }, { en: "Pizza", pt: "Pizza", emoji: "🍕" }, { en: "Sun", pt: "Sol", emoji: "☀️" }] },
+  Square: { pt: "Quadrado", draw: "🟪", cor: "#E8604E", objetos: [{ en: "Gift", pt: "Presente", emoji: "🎁" }, { en: "Window", pt: "Janela", emoji: "🪟" }, { en: "Dice", pt: "Dado", emoji: "🎲" }] },
+  Triangle: { pt: "Triângulo", draw: "🔺", cor: "#F5A93F", objetos: [{ en: "Watermelon", pt: "Melancia", emoji: "🍉" }, { en: "Pyramid", pt: "Pirâmide", emoji: "📐" }, { en: "Cone", pt: "Cone", emoji: "🍦" }] },
+  Heart: { pt: "Coração", draw: "❤️", cor: "#E57E9E", objetos: [{ en: "Balloon", pt: "Balão", emoji: "🎈" }, { en: "Cookie", pt: "Biscoito", emoji: "🍪" }, { en: "Ring", pt: "Anel", emoji: "💍" }] }
 };
 
 const CORES_PALETA = ["#5B8C5A", "#E8604E", "#8B639B", "#3E7C74"];
@@ -418,6 +442,7 @@ function mudarMundo(mundo) {
   document.getElementById('telaColors').classList.add('hidden');
   document.getElementById('telaDetalhesColors').classList.add('hidden');
   document.getElementById('telaShapes').classList.add('hidden');
+  document.getElementById('telaDetalhesShapes').classList.add('hidden');
   
   if (mundo === 'home') {
     document.getElementById('topTabs').classList.add('hidden');
@@ -517,35 +542,27 @@ async function verNumero(num, corDestaque) {
   }
 }
 
-// ==================== NOVO: COLORS LÓGICA ====================
+// COLORS Lógica
 function initColorsGrid() {
   const gridColors = document.getElementById('telaColors');
   gridColors.innerHTML = '';
   Object.keys(CORES_DADOS).forEach(corNome => {
     const dados = CORES_DADOS[corNome];
     const btn = document.createElement('button');
-    btn.className = 'btn-cor';
-    btn.style.backgroundColor = dados.hex;
+    btn.className = 'btn-cor'; btn.style.backgroundColor = dados.hex;
     btn.style.boxShadow = `0 6px 0 ${dados.hex}B0`;
     btn.innerHTML = `${corNome} <span>(${dados.pt})</span>`;
     btn.onclick = () => verCorDetalhes(corNome);
     gridColors.appendChild(btn);
   });
 }
-
 async function verCorDetalhes(corNome) {
   document.getElementById('telaColors').classList.add('hidden');
   document.getElementById('telaDetalhesColors').classList.remove('hidden');
-  
   const dados = CORES_DADOS[corNome];
-  
-  // Troca o fundo da tela para uma cor pastel fofa da cor escolhida
   document.body.style.backgroundColor = dados.bgPastel;
-  
   const colorTitulo = document.getElementById('colorTitulo');
-  colorTitulo.textContent = corNome;
-  colorTitulo.style.color = dados.hex;
-  
+  colorTitulo.textContent = corNome; colorTitulo.style.color = dados.hex;
   bubbleBen.textContent = `${corNome} é a cor ${dados.pt}!`;
   
   await falarTexto(corNome, 'en-US');
@@ -554,17 +571,58 @@ async function verCorDetalhes(corNome) {
 
   const listaObjetos = document.getElementById('listaObjetosCores');
   listaObjetos.innerHTML = '';
+  dados.objetos.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card-palavra'; card.style.borderColor = dados.hex + "60";
+    card.onclick = () => interagirComCard(item, card, dados.hex);
+    card.innerHTML = `<span class="emoji">${item.emoji}</span><div class="textos-palavra"><span class="palavra-en" style="color: ${dados.hex}"><span class="flag">🇺🇸</span>${item.en}</span><span class="palavra-pt"><span class="flag">🇧🇷</span>${item.pt}</span></div>`;
+    listaObjetos.appendChild(card);
+  });
+}
+
+// ==================== NOVO: SHAPES LÓGICA ====================
+function initShapesGrid() {
+  const gridShapes = document.getElementById('telaShapes');
+  gridShapes.innerHTML = '';
+  Object.keys(SHAPES_DADOS).forEach(shapeNome => {
+    const dados = SHAPES_DADOS[shapeNome];
+    const btn = document.createElement('button');
+    btn.className = 'btn-shape';
+    btn.style.borderColor = dados.cor + "50";
+    btn.innerHTML = `<span class="shape-draw">${dados.draw}</span>${shapeNome} <span>(${dados.pt})</span>`;
+    btn.onclick = () => verShapeDetalhes(shapeNome);
+    gridShapes.appendChild(btn);
+  });
+}
+
+async function verShapeDetalhes(shapeNome) {
+  document.getElementById('telaShapes').classList.add('hidden');
+  document.getElementById('telaDetalhesShapes').classList.remove('hidden');
+  
+  const dados = SHAPES_DADOS[shapeNome];
+  const shapeTitulo = document.getElementById('shapeTitulo');
+  shapeTitulo.textContent = shapeNome;
+  shapeTitulo.style.color = dados.cor;
+  
+  bubbleBen.textContent = `Shape ${shapeNome}! Círculo em português!`;
+  
+  await falarTexto(shapeNome, 'en-US');
+  await new Promise(r => setTimeout(r, 150));
+  await falarTexto(dados.pt, 'pt-BR');
+
+  const listaObjetos = document.getElementById('listaObjetosShapes');
+  listaObjetos.innerHTML = '';
   
   dados.objetos.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card-palavra';
-    card.style.borderColor = dados.hex + "60";
-    card.onclick = () => interagirComCard(item, card, dados.hex);
+    card.style.borderColor = dados.cor + "60";
+    card.onclick = () => interagirComCard(item, card, dados.cor);
     
     card.innerHTML = `
       <span class="emoji">${item.emoji}</span>
       <div class="textos-palavra">
-        <span class="palavra-en" style="color: ${dados.hex}"><span class="flag">🇺🇸</span>${item.en}</span>
+        <span class="palavra-en" style="color: ${dados.cor}"><span class="flag">🇺🇸</span>${item.en}</span>
         <span class="palavra-pt"><span class="flag">🇧🇷</span>${item.pt}</span>
       </div>
     `;
@@ -572,14 +630,14 @@ async function verCorDetalhes(corNome) {
   });
 }
 
-// Compartilhado para ABC e Colors
+// Interação comum de voz
 async function interagirComCard(item, elementoCard, corDestaque) {
   speechSynthesis.cancel();
   elementoCard.classList.remove('animar');
   void elementoCard.offsetWidth;
   elementoCard.classList.add('animar');
   
-  bubbleBen.textContent = `${item.en} significa ${item.pt}!`;
+  bubbleBen.textContent = `${item.en} em português é ${item.pt}!`;
   await falarTexto(item.en, 'en-US');
   await new Promise(r => setTimeout(r, 150));
   await falarTexto(item.pt, 'pt-BR');
@@ -597,10 +655,11 @@ function falarTexto(texto, idioma) {
   });
 }
 
-// Inicializações
+// Inicializações Globais
 initAbcGrid();
 initNumbersGrid();
 initColorsGrid();
+initShapesGrid();
 mudarMundo('home');
 </script>
 </body>
