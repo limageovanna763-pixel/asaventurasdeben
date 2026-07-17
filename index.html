@@ -2,325 +2,144 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>As Aventuras de Ben - ABC e Números 🐻</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>As Aventuras de Ben - Explore o ABC 🐻</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --cream:#FFF6E5;
-    --card:#FFFFFF;
-    --honey:#F5A93F;
-    --honey-dark:#D98A1E;
-    --forest:#5B8C5A;
-    --forest-dark:#3F6B40;
-    --berry:#E8604E;
-    --teal:#3E7C74;
-    --brown:#4A2F22;
-    --outline:#EAD9B8;
+  :root {
+    --cream: #FFF6E5;
+    --card: #FFFFFF;
+    --honey: #F5A93F;
+    --honey-dark: #D98A1E;
+    --forest: #5B8C5A;
+    --forest-dark: #3F6B40;
+    --berry: #E8604E;
+    --teal: #3E7C74;
+    --brown: #4A2F22;
+    --outline: #EAD9B8;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    font-family:'Nunito',sans-serif;
-    background:var(--cream);
-    color:var(--brown);
-    min-height:100vh;
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    padding:24px 14px 40px;
-    position:relative;
-    overflow-x:hidden;
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--brown);
+    margin: 0;
+    padding: 20px 14px 40px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
   }
-  .honeycomb-bg{
-    position:fixed; inset:0;
-    z-index:0;
-    opacity:0.35;
-    pointer-events:none;
+  .honeycomb-bg {
+    position: fixed; inset: 0; z-index: 0; opacity: 0.25; pointer-events: none;
   }
-  .wrap{
-    position:relative;
-    z-index:1;
-    width:100%;
-    max-width:560px;
+  .wrap {
+    position: relative; z-index: 1; width: 100%; max-width: 600px; text-align: center;
   }
-
-  /* ---- Header ---- */
-  header{
-    text-align:center;
-    margin-bottom:10px;
+  header h1 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: clamp(28px, 6vw, 36px);
+    color: var(--forest-dark);
+    margin: 10px 0 5px;
   }
-  h1{
-    font-family:'Baloo 2', sans-serif;
-    font-size:clamp(26px, 6vw, 34px);
-    font-weight:800;
-    color:var(--forest-dark);
-    margin:6px 0 2px;
-    letter-spacing:0.5px;
-  }
-  .subtitle{
-    font-weight:700;
-    color:var(--honey-dark);
-    font-size:15px;
-    margin:0 0 8px;
+  .subtitle {
+    font-weight: 700; color: var(--honey-dark); margin: 0 0 20px; font-size: 16px;
   }
 
-  /* ---- Tabs ---- */
-  .tabs{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    margin:14px 0 18px;
+  /* ---- Tela 1: Painel do Alfabeto ---- */
+  .grid-abc {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 10px;
   }
-  .tab{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:700;
-    font-size:17px;
-    padding:10px 20px;
-    border-radius:999px;
-    border:3px solid var(--outline);
-    background:var(--card);
-    color:var(--brown);
-    cursor:pointer;
-    transition:transform .15s ease, background .2s ease, border-color .2s ease, color .2s ease;
-    touch-action:manipulation;
+  .btn-letra {
+    background: var(--card);
+    border: 3px solid var(--outline);
+    border-radius: 18px;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--forest-dark);
+    padding: 15px 0;
+    cursor: pointer;
+    box-shadow: 0 5px 0 var(--outline);
+    transition: transform 0.1s, box-shadow 0.1s;
   }
-  .tab:active{ transform:scale(0.95); }
-  .tab.active{
-    background:var(--forest);
-    border-color:var(--forest-dark);
-    color:#fff;
+  .btn-letra:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 var(--outline);
   }
 
-  /* ---- Bear + speech bubble ---- */
-  .stage{
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:14px;
+  /* ---- Tela 2: Detalhes da Letra ---- */
+  .hidden { display: none !important; }
+  .view-detalhes {
+    animation: fadeIn 0.3s ease-out;
   }
-  .bubble{
-    background:var(--card);
-    border:3px solid var(--outline);
-    border-radius:20px;
-    padding:12px 16px;
-    max-width:230px;
-    font-family:'Baloo 2', sans-serif;
-    font-weight:600;
-    font-size:16px;
-    color:var(--forest-dark);
-    text-align:center;
-    position:relative;
-    min-height:44px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 4px 0 var(--outline);
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+  .topo-detalhes {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
   }
-  .bubble::after{
-    content:"";
-    position:absolute;
-    right:-14px;
-    bottom:14px;
-    border:10px solid transparent;
-    border-left-color:var(--card);
+  .btn-voltar {
+    background: var(--honey);
+    border: none; border-radius: 50px;
+    color: white; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px;
+    padding: 10px 18px; cursor: pointer; box-shadow: 0 4px 0 var(--honey-dark);
   }
-  .bear-btn{
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:0;
-    touch-action:manipulation;
-  }
-  .bear-btn svg{ display:block; width:104px; height:104px; }
-  .bear-btn.talking svg{ animation:bounce 0.6s ease-in-out infinite; }
-  @keyframes bounce{
-    0%,100%{ transform:translateY(0) rotate(0deg); }
-    50%{ transform:translateY(-6px) rotate(-2deg); }
+  .btn-voltar:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--honey-dark); }
+
+  .letra-gigante {
+    font-family: 'Baloo 2', sans-serif; font-size: 90px; font-weight: 800;
+    margin: 0; line-height: 1; text-shadow: 4px 4px 0 var(--outline);
   }
 
-  /* ---- Main card ---- */
-  .card{
-    background:var(--card);
-    border-radius:28px;
-    border:4px solid var(--outline);
-    padding:26px 20px 22px;
-    text-align:center;
-    box-shadow:0 8px 0 var(--outline);
-    position:relative;
-    overflow:hidden;
+  /* Cards de Palavras */
+  .container-palavras {
+    display: flex; flex-direction: column; gap: 16px; margin-top: 15px;
   }
-  .card::before{
-    content:"";
-    position:absolute; top:0; left:0; right:0; height:10px;
-    background:linear-gradient(90deg, var(--honey), var(--berry), var(--teal), var(--forest));
+  .card-palavra {
+    background: var(--card);
+    border: 4px solid var(--outline);
+    border-radius: 24px;
+    padding: 16px;
+    display: flex; align-items: center; gap: 20px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 var(--outline);
+    transition: transform 0.15s, box-shadow 0.15s;
   }
-  .emoji{
-    font-size:76px;
-    line-height:1;
-    margin:6px 0 10px;
-    display:block;
+  .card-palavra:active {
+    transform: scale(0.98) translateY(4px);
+    box-shadow: 0 2px 0 var(--outline);
   }
-  .big-letter{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:800;
-    font-size:clamp(70px, 22vw, 110px);
-    line-height:1;
-    margin:0;
-    text-shadow:4px 4px 0 var(--outline);
-  }
-  .words{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:14px;
-  }
-  .word-pill{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:700;
-    font-size:18px;
-    padding:8px 18px;
-    border-radius:999px;
-    color:#fff;
-  }
-  .word-pill.en{ background:var(--teal); }
-  .word-pill.pt{ background:var(--berry); }
-  .flag{ margin-right:6px; }
+  .card-palavra .emoji { font-size: 55px; }
+  .textos-palavra { text-align: left; display: flex; flex-direction: column; gap: 2px; }
+  .palavra-en { font-family: 'Baloo 2', sans-serif; font-size: 24px; font-weight: 800; color: var(--teal); }
+  .palavra-pt { font-size: 18px; font-weight: 700; color: var(--berry); }
+  .flag { margin-right: 6px; font-size: 16px; }
 
-  /* ---- Honeycomb progress ---- */
-  .progress-label{
-    font-weight:700;
-    font-size:13px;
-    color:var(--honey-dark);
-    text-align:center;
-    margin:16px 0 8px;
-  }
-  .hive{
-    display:flex;
-    gap:5px;
-    overflow-x:auto;
-    padding:6px 4px 10px;
-    scrollbar-width:none;
-  }
-  .hive::-webkit-scrollbar{ display:none; }
-  .cell{
-    flex:0 0 auto;
-    width:24px; height:24px;
-    clip-path:polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-    background:var(--outline);
-    transition:background .25s ease, transform .25s ease;
-  }
-  .cell.done{ background:var(--honey); }
-  .cell.current{
-    background:var(--berry);
-    transform:scale(1.25);
-  }
+  /* Instrução fofa */
+  .dica { font-weight: 700; color: #8a7a5f; margin-top: 20px; font-size: 15px; }
 
-  /* ---- Controls ---- */
-  .controls{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    margin-top:22px;
+  /* Balão do Urso */
+  .bear-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px; }
+  .bubble {
+    background: white; border: 3px solid var(--outline); border-radius: 18px;
+    padding: 10px 14px; font-family: 'Baloo 2', sans-serif; font-weight: 700;
+    color: var(--forest-dark); position: relative; max-width: 200px;
   }
-  .ctrl-btn{
-    border:none;
-    border-radius:999px;
-    cursor:pointer;
-    font-family:'Baloo 2', sans-serif;
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    touch-action:manipulation;
-    transition:transform .12s ease;
+  .bubble::after {
+    content:""; position: absolute; left: -14px; top: 50%; transform: translateY(-50%);
+    border: 8px solid transparent; border-right-color: white;
   }
-  .ctrl-btn:active{ transform:scale(0.92); }
-  .ctrl-small{
-    width:52px; height:52px;
-    background:var(--card);
-    border:3px solid var(--outline);
-    color:var(--forest-dark);
-    font-size:22px;
-  }
-  .ctrl-main{
-    padding:16px 34px;
-    font-size:19px;
-    background:var(--forest);
-    color:#fff;
-    box-shadow:0 5px 0 var(--forest-dark);
-  }
-  .ctrl-main:active{ box-shadow:0 2px 0 var(--forest-dark); }
-  .ctrl-main.paused{ background:var(--honey); box-shadow:0 5px 0 var(--honey-dark); }
-  .ctrl-main.paused:active{ box-shadow:0 2px 0 var(--honey-dark); }
+  .bear-svg { width: 70px; height: 70px; animation: gentle 3s infinite ease-in-out; }
+  @keyframes gentle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
-  .hint{
-    text-align:center;
-    font-size:13px;
-    color:#8a7a5f;
-    margin-top:16px;
-    font-weight:700;
-  }
-
-  .yt-link{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    margin:16px auto 0;
-    max-width:320px;
-    background:#FF3B30;
-    color:#fff;
-    text-decoration:none;
-    font-family:'Baloo 2', sans-serif;
-    font-weight:700;
-    font-size:15px;
-    padding:13px 18px;
-    border-radius:999px;
-    box-shadow:0 4px 0 #C6281F;
-    transition:transform .12s ease;
-  }
-  .yt-link:active{ transform:scale(0.96); }
-  .yt-icon{ font-size:15px; }
-
-  /* ---- Celebration ---- */
-  .celebrate-overlay{
-    position:fixed; inset:0;
-    background:rgba(74,47,34,0.55);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:10;
-    padding:20px;
-  }
-  .celebrate-overlay.show{ display:flex; }
-  .celebrate-card{
-    background:var(--card);
-    border-radius:28px;
-    padding:32px 26px;
-    text-align:center;
-    max-width:340px;
-    box-shadow:0 10px 0 var(--honey-dark);
-  }
-  .celebrate-card .emoji-big{ font-size:64px; }
-  .celebrate-card h2{
-    font-family:'Baloo 2', sans-serif;
-    color:var(--forest-dark);
-    font-size:26px;
-    margin:8px 0 4px;
-  }
-  .celebrate-card p{
-    font-weight:700;
-    color:var(--honey-dark);
-    margin:0 0 18px;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .bear-btn.talking svg{ animation:none; }
+  .yt-link {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin: 30px auto 0; max-width: 340px; background: #FF3B30; color: #fff;
+    text-decoration: none; font-family: 'Baloo 2', sans-serif; font-weight: 700;
+    font-size: 15px; padding: 12px 20px; border-radius: 999px; box-shadow: 0 4px 0 #C6281F;
   }
 </style>
 </head>
@@ -328,306 +147,278 @@
 
 <svg class="honeycomb-bg" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <pattern id="hexpat" width="44" height="76" patternUnits="userSpaceOnUse" patternTransform="scale(1)">
-      <polygon points="22,0 44,12.7 44,38 22,50.7 0,38 0,12.7" fill="none" stroke="#F5A93F" stroke-width="1.5" opacity="0.5"/>
-      <polygon points="22,38 44,50.7 44,76 22,88.7 0,76 0,50.7" fill="none" stroke="#F5A93F" stroke-width="1.5" opacity="0.5"/>
+    <pattern id="hexpat" width="44" height="76" patternUnits="userSpaceOnUse">
+      <polygon points="22,0 44,12.7 44,38 22,50.7 0,38 0,12.7" fill="none" stroke="#F5A93F" stroke-width="1.5" opacity="0.4"/>
     </pattern>
   </defs>
   <rect width="100%" height="100%" fill="url(#hexpat)"/>
 </svg>
 
 <div class="wrap">
+  <!-- Cabeçalho Principal -->
   <header>
     <h1>As Aventuras de Ben 🐻</h1>
-    <p class="subtitle">ABC e Números &nbsp;•&nbsp; English &amp; Português</p>
+    <p class="subtitle">Toque em uma letra para explorar!</p>
   </header>
 
-  <div class="tabs">
-    <button class="tab active" id="tabAbc" onclick="switchMode('abc')">🔤 Letras</button>
-    <button class="tab" id="tabNum" onclick="switchMode('num')">🔢 Números</button>
+  <!-- Balão e Ursinho Ben -->
+  <div class="bear-box">
+    <svg class="bear-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="26" r="16" fill="#B5793E"/><circle cx="90" cy="26" r="16" fill="#B5793E"/>
+      <circle cx="30" cy="26" r="8" fill="#E9C9A0"/><circle cx="90" cy="26" r="8" fill="#E9C9A0"/>
+      <circle cx="60" cy="60" r="42" fill="#C98A47"/><ellipse cx="60" cy="74" rx="22" ry="18" fill="#F0D5AE"/>
+      <circle cx="43" cy="52" r="6" fill="#4A2F22"/><circle cx="77" cy="52" r="6" fill="#4A2F22"/>
+      <ellipse cx="60" cy="70" rx="7" ry="5" fill="#4A2F22"/>
+      <path d="M60 74 Q60 82 50 82 M60 74 Q60 82 70 82" stroke="#4A2F22" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="bubble" id="bubbleBen">Hi! Vamos aprender inglês juntos?</div>
   </div>
 
-  <div class="stage">
-    <div class="bubble" id="bubble">Toque em "Começar"!</div>
-    <button class="bear-btn" id="bearBtn" onclick="replayCurrent()" aria-label="Repetir">
-      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="60" cy="108" rx="30" ry="8" fill="#4A2F22" opacity="0.12"/>
-        <circle cx="30" cy="26" r="16" fill="#B5793E"/>
-        <circle cx="90" cy="26" r="16" fill="#B5793E"/>
-        <circle cx="30" cy="26" r="8" fill="#E9C9A0"/>
-        <circle cx="90" cy="26" r="8" fill="#E9C9A0"/>
-        <circle cx="60" cy="60" r="42" fill="#C98A47"/>
-        <ellipse cx="60" cy="74" rx="22" ry="18" fill="#F0D5AE"/>
-        <circle cx="43" cy="52" r="6" fill="#4A2F22"/>
-        <circle cx="77" cy="52" r="6" fill="#4A2F22"/>
-        <circle cx="45" cy="50" r="2" fill="#fff"/>
-        <circle cx="79" cy="50" r="2" fill="#fff"/>
-        <ellipse cx="60" cy="70" rx="7" ry="5" fill="#4A2F22"/>
-        <path d="M60 74 Q60 82 50 82" stroke="#4A2F22" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M60 74 Q60 82 70 82" stroke="#4A2F22" stroke-width="3" fill="none" stroke-linecap="round"/>
-      </svg>
-    </button>
-  </div>
+  <!-- TELA 1: Menu de Letras -->
+  <div id="viewMenu" class="grid-abc"></div>
 
-  <div class="card">
-    <span class="emoji" id="emoji">🐻</span>
-    <div class="big-letter" id="bigLetter" style="color:var(--forest);">A</div>
-    <div class="words">
-      <span class="word-pill en" id="wordEn"><span class="flag">🇺🇸</span>Apple</span>
-      <span class="word-pill pt" id="wordPt"><span class="flag">🇧🇷</span>Maçã</span>
+  <!-- TELA 2: Detalhes da Letra (Começa escondida) -->
+  <div id="viewDetalhes" class="view-detalhes hidden">
+    <div class="topo-detalhes">
+      <button class="btn-voltar" onclick="voltarParaMenu()">🐻 Voltar</button>
+      <div class="letra-gigante" id="letraTitulo" style="color: var(--berry);">A</div>
+      <div style="width: 75px;"></div> <!-- Espaçador para centralizar -->
     </div>
+    
+    <p class="dica">Toque nas figuras para ouvir o Ben falar! 🔊</p>
+    <div class="container-palavras" id="listaPalavras"></div>
   </div>
 
-  <p class="progress-label" id="progressLabel">Letra 1 de 26</p>
-  <div class="hive" id="hive"></div>
-
-  <div class="controls">
-    <button class="ctrl-btn ctrl-small" onclick="goStep(-1)" aria-label="Anterior">⟵</button>
-    <button class="ctrl-btn ctrl-main" id="playBtn" onclick="togglePlay()">▶️ Começar</button>
-    <button class="ctrl-btn ctrl-small" onclick="goStep(1)" aria-label="Próximo">⟶</button>
-  </div>
-
-  <p class="hint">O Ben fala sozinho cada letra em inglês e português 🔊</p>
-
+  <!-- Link do YouTube -->
   <a class="yt-link" href="https://www.youtube.com/@As.aventurasdeben" target="_blank" rel="noopener noreferrer">
-    <span class="yt-icon">▶️</span> Ver mais aventuras do Ben no YouTube
+    ▶️ Assistir As Aventuras de Ben no YouTube
   </a>
 </div>
 
-<div class="celebrate-overlay" id="celebrate">
-  <div class="celebrate-card">
-    <div class="emoji-big">🎉🐻🍯</div>
-    <h2>Muito bem!</h2>
-    <p>Great job! Você aprendeu tudo!</p>
-    <button class="ctrl-btn ctrl-main" onclick="restartAll()">🔁 De novo</button>
-    <a class="yt-link" style="margin-top:14px;" href="https://www.youtube.com/@As.aventurasdeben" target="_blank" rel="noopener noreferrer">
-      <span class="yt-icon">▶️</span> Assistir no YouTube
-    </a>
-  </div>
-</div>
-
 <script>
-const LETTERS = [
-  {l:"A", en:"Apple", pt:"Maçã", emoji:"🍎"},
-  {l:"B", en:"Ball", pt:"Bola", emoji:"⚽"},
-  {l:"C", en:"Cat", pt:"Gato", emoji:"🐱"},
-  {l:"D", en:"Dog", pt:"Cachorro", emoji:"🐶"},
-  {l:"E", en:"Elephant", pt:"Elefante", emoji:"🐘"},
-  {l:"F", en:"Fish", pt:"Peixe", emoji:"🐟"},
-  {l:"G", en:"Giraffe", pt:"Girafa", emoji:"🦒"},
-  {l:"H", en:"House", pt:"Casa", emoji:"🏠"},
-  {l:"I", en:"Ice cream", pt:"Sorvete", emoji:"🍦"},
-  {l:"J", en:"Juice", pt:"Suco", emoji:"🧃"},
-  {l:"K", en:"Kite", pt:"Pipa", emoji:"🪁"},
-  {l:"L", en:"Lion", pt:"Leão", emoji:"🦁"},
-  {l:"M", en:"Moon", pt:"Lua", emoji:"🌙"},
-  {l:"N", en:"Nut", pt:"Noz", emoji:"🥜"},
-  {l:"O", en:"Orange", pt:"Laranja", emoji:"🍊"},
-  {l:"P", en:"Pig", pt:"Porco", emoji:"🐷"},
-  {l:"Q", en:"Queen", pt:"Rainha", emoji:"👑"},
-  {l:"R", en:"Rabbit", pt:"Coelho", emoji:"🐰"},
-  {l:"S", en:"Sun", pt:"Sol", emoji:"☀️"},
-  {l:"T", en:"Tree", pt:"Árvore", emoji:"🌳"},
-  {l:"U", en:"Umbrella", pt:"Guarda-chuva", emoji:"☂️"},
-  {l:"V", en:"Volcano", pt:"Vulcão", emoji:"🌋"},
-  {l:"W", en:"Watermelon", pt:"Melancia", emoji:"🍉"},
-  {l:"X", en:"X-ray", pt:"Raio-X", emoji:"🩻"},
-  {l:"Y", en:"Yo-yo", pt:"Ioiô", emoji:"🪀"},
-  {l:"Z", en:"Zebra", pt:"Zebra", emoji:"🦓"},
-];
-
-const NUMBERS = [
-  {l:"1", en:"One", pt:"Um", emoji:"⭐"},
-  {l:"2", en:"Two", pt:"Dois", emoji:"⭐⭐"},
-  {l:"3", en:"Three", pt:"Três", emoji:"⭐⭐⭐"},
-  {l:"4", en:"Four", pt:"Quatro", emoji:"⭐⭐⭐⭐"},
-  {l:"5", en:"Five", pt:"Cinco", emoji:"⭐⭐⭐⭐⭐"},
-  {l:"6", en:"Six", pt:"Seis", emoji:"⭐⭐⭐⭐⭐⭐"},
-  {l:"7", en:"Seven", pt:"Sete", emoji:"⭐⭐⭐⭐⭐⭐⭐"},
-  {l:"8", en:"Eight", pt:"Oito", emoji:"⭐⭐⭐⭐⭐⭐⭐⭐"},
-  {l:"9", en:"Nine", pt:"Nove", emoji:"⭐⭐⭐⭐⭐⭐⭐⭐⭐"},
-  {l:"10", en:"Ten", pt:"Dez", emoji:"⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐"},
-];
-
-const ACCENTS = ["#5B8C5A","#E8604E","#3E7C74","#D98A1E"];
-
-let mode = "abc";
-let index = 0;
-let playing = false;
-let playToken = 0; // increments to cancel stale async chains
-
-const els = {
-  bubble: document.getElementById('bubble'),
-  bearBtn: document.getElementById('bearBtn'),
-  emoji: document.getElementById('emoji'),
-  bigLetter: document.getElementById('bigLetter'),
-  wordEn: document.getElementById('wordEn'),
-  wordPt: document.getElementById('wordPt'),
-  progressLabel: document.getElementById('progressLabel'),
-  hive: document.getElementById('hive'),
-  playBtn: document.getElementById('playBtn'),
-  tabAbc: document.getElementById('tabAbc'),
-  tabNum: document.getElementById('tabNum'),
-  celebrate: document.getElementById('celebrate'),
+// Banco de dados expandido: 3 palavras super interativas para CADA letra do alfabeto!
+const ALFABETO_DADOS = {
+  A: [
+    { en: "Apple", pt: "Maçã", emoji: "🍎" },
+    { en: "Alligator", pt: "Jacaré", emoji: "🐊" },
+    { en: "Astronaut", pt: "Astronauta", emoji: "🧑‍🚀" }
+  ],
+  B: [
+    { en: "Ball", pt: "Bola", emoji: "⚽" },
+    { en: "Bear", pt: "Urso", emoji: "🐻" },
+    { en: "Banana", pt: "Banana", emoji: "🍌" }
+  ],
+  C: [
+    { en: "Cat", pt: "Gato", emoji: "🐱" },
+    { en: "Car", pt: "Carro", emoji: "🚗" },
+    { en: "Cake", pt: "Bolo", emoji: "🎂" }
+  ],
+  D: [
+    { en: "Dog", pt: "Cachorro", emoji: "🐶" },
+    { en: "Dolphin", pt: "Golfinho", emoji: "🐬" },
+    { en: "Duck", pt: "Pato", emoji: "🦆" }
+  ],
+  E: [
+    { en: "Elephant", pt: "Elefante", emoji: "🐘" },
+    { en: "Egg", pt: "Ovo", emoji: "🥚" },
+    { en: "Eagle", pt: "Águia", emoji: "🦅" }
+  ],
+  F: [
+    { en: "Fish", pt: "Peixe", emoji: "🐟" },
+    { en: "Frog", pt: "Sapo", emoji: "🐸" },
+    { en: "Flower", pt: "Flor", emoji: "🌸" }
+  ],
+  G: [
+    { en: "Giraffe", pt: "Girafa", emoji: "🦒" },
+    { en: "Grapes", pt: "Uvas", emoji: "🍇" },
+    { en: "Guitar", pt: "Violão", emoji: "🎸" }
+  ],
+  H: [
+    { en: "House", pt: "Casa", emoji: "🏠" },
+    { en: "Hippo", pt: "Hipopótamo", emoji: "🦛" },
+    { en: "Hat", pt: "Chapéu", emoji: "🎩" }
+  ],
+  I: [
+    { en: "Ice cream", pt: "Sorvete", emoji: "🍦" },
+    { en: "Iguana", pt: "Iguana", emoji: "🦎" },
+    { en: "Island", pt: "Ilha", emoji: "🏝️" }
+  ],
+  J: [
+    { en: "Juice", pt: "Suco", emoji: "🧃" },
+    { en: "Jellyfish", pt: "Água-viva", emoji: "🪼" },
+    { en: "Jaguar", pt: "Onça-pintada", emoji: "🐆" }
+  ],
+  K: [
+    { en: "Kite", pt: "Pipa", emoji: "🪁" },
+    { en: "Kangaroo", pt: "Canguru", emoji: "🦘" },
+    { en: "Kiwi", pt: "Kiwi", emoji: "🥝" }
+  ],
+  L: [
+    { en: "Lion", pt: "Leão", emoji: "🦁" },
+    { en: "Lemon", pt: "Limão", emoji: "🍋" },
+    { en: "Lion", pt: "Lâmpada", emoji: "💡" }
+  ],
+  M: [
+    { en: "Moon", pt: "Lua", emoji: "🌙" },
+    { en: "Monkey", pt: "Macaco", emoji: "🐵" },
+    { en: "Milk", pt: "Leite", emoji: "🥛" }
+  ],
+  N: [
+    { en: "Nest", pt: "Ninho", emoji: "🪹" },
+    { en: "Nut", pt: "Noz", emoji: "🥜" },
+    { en: "Notebook", pt: "Caderno", emoji: "📓" }
+  ],
+  O: [
+    { en: "Orange", pt: "Laranja", emoji: "🍊" },
+    { en: "Owl", pt: "Coruja", emoji: "🦉" },
+    { en: "Octopus", pt: "Polvo", emoji: "🐙" }
+  ],
+  P: [
+    { en: "Pig", pt: "Porco", emoji: "🐷" },
+    { en: "Penguin", pt: "Pinguim", emoji: "🐧" },
+    { en: "Pear", pt: "Pêra", emoji: "🍐" }
+  ],
+  Q: [
+    { en: "Queen", pt: "Rainha", emoji: "👑" },
+    { en: "Quiet", pt: "Quieto", emoji: "🤫" },
+    { en: "Quilt", pt: "Colcha", emoji: "🪡" }
+  ],
+  R: [
+    { en: "Rabbit", pt: "Coelho", emoji: "🐰" },
+    { en: "Robot", pt: "Robô", emoji: "🤖" },
+    { en: "Rocket", pt: "Foguete", emoji: "🚀" }
+  ],
+  S: [
+    { en: "Sun", pt: "Sol", emoji: "☀️" },
+    { en: "Ship", pt: "Navio", emoji: "🚢" },
+    { en: "Strawberry", pt: "Morango", emoji: "🍓" }
+  ],
+  T: [
+    { en: "Tree", pt: "Árvore", emoji: "🌳" },
+    { en: "Tiger", pt: "Tigre", emoji: "🐯" },
+    { en: "Tomato", pt: "Tomate", emoji: "🍅" }
+  ],
+  U: [
+    { en: "Umbrella", pt: "Guarda-chuva", emoji: "☂️" },
+    { en: "Unicorn", pt: "Unicórnio", emoji: "🦄" },
+    { en: "Universe", pt: "Universo", emoji: "🌌" }
+  ],
+  V: [
+    { en: "Volcano", pt: "Vulcão", emoji: "🌋" },
+    { en: "Vase", pt: "Vaso", emoji: "🏺" },
+    { en: "Violin", pt: "Violino", emoji: "🎻" }
+  ],
+  W: [
+    { en: "Watermelon", pt: "Melancia", emoji: "🍉" },
+    { en: "Whale", pt: "Baleia", emoji: "🐳" },
+    { en: "Watch", pt: "Relógio", emoji: "⌚" }
+  ],
+  X: [
+    { en: "X-ray", pt: "Raio-X", emoji: "🩻" },
+    { en: "Xylophone", pt: "Xilofone", emoji: "🪘" },
+    { en: "Xenops", pt: "Passarinho", emoji: "🐦" }
+  ],
+  Y: [
+    { en: "Yo-yo", pt: "Ioiô", emoji: "🪀" },
+    { en: "Yak", pt: "Yoque", emoji: "🐂" },
+    { en: "Yogurt", pt: "Iogurte", emoji: "🥛" }
+  ],
+  Z: [
+    { en: "Zebra", pt: "Zebra", emoji: "🦓" },
+    { en: "Zipper", pt: "Zíper", emoji: "🤐" },
+    { en: "Zoo", pt: "Zoológico", emoji: "🏡" }
+  ]
 };
 
-function currentList(){ return mode === 'abc' ? LETTERS : NUMBERS; }
+const CORES = ["#5B8C5A", "#E8604E", "#3E7C74", "#D98A1E"];
+const viewMenu = document.getElementById('viewMenu');
+const viewDetalhes = document.getElementById('viewDetalhes');
+const letraTitulo = document.getElementById('letraTitulo');
+const listaPalavras = document.getElementById('listaPalavras');
+const bubbleBen = document.getElementById('bubbleBen');
 
-function buildHive(){
-  const list = currentList();
-  els.hive.innerHTML = '';
-  list.forEach((_, i) => {
-    const c = document.createElement('div');
-    c.className = 'cell';
-    c.id = 'cell-' + i;
-    els.hive.appendChild(c);
+// Inicializa o Painel de Letras Principal
+function initMenu() {
+  viewMenu.innerHTML = '';
+  Object.keys(ALFABETO_DADOS).forEach((letra, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-letra';
+    btn.textContent = letra;
+    btn.style.color = CORES[i % CORES.length];
+    btn.onclick = () => verLetra(letra);
+    viewMenu.appendChild(btn);
   });
 }
 
-function updateHive(){
-  const list = currentList();
-  list.forEach((_, i) => {
-    const c = document.getElementById('cell-' + i);
-    if(!c) return;
-    c.classList.remove('done','current');
-    if(i < index) c.classList.add('done');
-    if(i === index) c.classList.add('current');
+// Navega para a página da letra escolhida
+function verLetra(letra) {
+  speechSynthesis.cancel();
+  viewMenu.classList.add('hidden');
+  viewDetalhes.classList.remove('hidden');
+  
+  letraTitulo.textContent = letra;
+  letraTitulo.style.color = CORES[letra.charCodeAt(0) % CORES.length];
+  
+  bubbleBen.textContent = "Letra " + letra + "! O que vamos descobrir?";
+  falarTexto(letra, 'en-US');
+
+  // Renderiza as 3 palavras dinâmicas daquela letra
+  listaPalavras.innerHTML = '';
+  ALFABETO_DADOS[letra].forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card-palavra';
+    card.onclick = () => interagirComPalavra(item);
+
+    card.innerHTML = `
+      <span class="emoji">${item.emoji}</span>
+      <div class="textos-palavra">
+        <span class="palavra-en"><span class="flag">🇺🇸</span>${item.en}</span>
+        <span class="palavra-pt"><span class="flag">🇧🇷</span>${item.pt}</span>
+      </div>
+    `;
+    listaPalavras.appendChild(card);
   });
 }
 
-function renderCard(){
-  const list = currentList();
-  const item = list[index];
-  const accent = ACCENTS[index % ACCENTS.length];
-  els.emoji.textContent = item.emoji;
-  els.bigLetter.textContent = item.l;
-  els.bigLetter.style.color = accent;
-  els.wordEn.innerHTML = '<span class="flag">🇺🇸</span>' + item.en;
-  els.wordPt.innerHTML = '<span class="flag">🇧🇷</span>' + item.pt;
-  const noun = mode === 'abc' ? 'Letra' : 'Número';
-  els.progressLabel.textContent = noun + ' ' + (index+1) + ' de ' + list.length;
-  updateHive();
+// Volta para a tela inicial do alfabeto
+function voltarParaMenu() {
+  speechSynthesis.cancel();
+  viewDetalhes.classList.add('hidden');
+  viewMenu.classList.remove('hidden');
+  bubbleBen.textContent = "Escolha outra letra para explorar!";
 }
 
-function switchMode(m){
-  if(mode === m) return;
-  stopPlaying();
-  mode = m;
-  index = 0;
-  els.tabAbc.classList.toggle('active', m === 'abc');
-  els.tabNum.classList.toggle('active', m === 'num');
-  buildHive();
-  renderCard();
-  els.bubble.textContent = m === 'abc' ? 'Vamos aprender o ABC!' : "Vamos aprender os números!";
+// Executa as vozes e o balão do Ben ao tocar em um card
+async function interagirComPalavra(item) {
+  speechSynthesis.cancel();
+  
+  // Atualiza o balão do ursinho
+  bubbleBen.textContent = item.en + " significa " + item.pt + "!";
+  
+  // Fala em Inglês
+  await falarTexto(item.en, 'en-US');
+  // Pequena pausa natural
+  await new Promise(r => setTimeout(r, 200));
+  // Fala em Português
+  await falarTexto(item.pt, 'pt-BR');
 }
 
-function speak(text, lang){
+// Função utilitária de voz oficial da Speech API
+function falarTexto(texto, idioma) {
   return new Promise((resolve) => {
-    if(!('speechSynthesis' in window)){ resolve(); return; }
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang;
-    u.rate = 0.85;
-    u.pitch = 1.15;
-    u.onend = resolve;
-    u.onerror = resolve;
-    speechSynthesis.speak(u);
+    if (!('speechSynthesis' in window)) { resolve(); return; }
+    const utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = idioma;
+    utterance.rate = 0.82; // Velocidade infantil ideal
+    utterance.pitch = 1.15; // Voz um pouco mais fina/fofa
+    utterance.onend = resolve;
+    utterance.onerror = resolve;
+    speechSynthesis.speak(utterance);
   });
 }
 
-async function narrate(myToken){
-  const list = currentList();
-  const item = list[index];
-  els.bearBtn.classList.add('talking');
-
-  const noun = mode === 'abc' ? 'Letter' : 'Number';
-  els.bubble.textContent = noun + ' ' + item.l;
-  await speak(item.l, 'en-US');
-  if(myToken !== playToken) { els.bearBtn.classList.remove('talking'); return; }
-
-  els.bubble.textContent = item.en;
-  await speak(item.en, 'en-US');
-  if(myToken !== playToken) { els.bearBtn.classList.remove('talking'); return; }
-
-  els.bubble.textContent = item.pt;
-  await speak(item.pt, 'pt-BR');
-
-  els.bearBtn.classList.remove('talking');
-}
-
-async function replayCurrent(){
-  speechSynthesis.cancel();
-  playToken++;
-  const myToken = playToken;
-  await narrate(myToken);
-}
-
-async function playLoop(){
-  playing = true;
-  els.playBtn.textContent = '⏸️ Pausar';
-  els.playBtn.classList.add('paused');
-  playToken++;
-  const myToken = playToken;
-
-  while(playing && myToken === playToken){
-    renderCard();
-    await narrate(myToken);
-    if(!playing || myToken !== playToken) break;
-
-    await new Promise(r => setTimeout(r, 600));
-    if(!playing || myToken !== playToken) break;
-
-    const list = currentList();
-    if(index < list.length - 1){
-      index++;
-    } else {
-      stopPlaying();
-      showCelebration();
-      break;
-    }
-  }
-}
-
-function stopPlaying(){
-  playing = false;
-  playToken++;
-  speechSynthesis.cancel();
-  els.bearBtn.classList.remove('talking');
-  els.playBtn.textContent = '▶️ Continuar';
-  els.playBtn.classList.remove('paused');
-}
-
-function togglePlay(){
-  if(playing){
-    stopPlaying();
-  } else {
-    playLoop();
-  }
-}
-
-function goStep(dir){
-  stopPlaying();
-  const list = currentList();
-  index = Math.min(list.length - 1, Math.max(0, index + dir));
-  renderCard();
-  replayCurrent();
-  els.playBtn.textContent = '▶️ Continuar';
-}
-
-function showCelebration(){
-  els.celebrate.classList.add('show');
-}
-
-function restartAll(){
-  els.celebrate.classList.remove('show');
-  index = 0;
-  renderCard();
-  els.bubble.textContent = 'Toque em "Começar"!';
-  els.playBtn.textContent = '▶️ Começar';
-}
-
-// init
-buildHive();
-renderCard();
+// Inicia o app
+initMenu();
 </script>
 </body>
 </html>
