@@ -23,6 +23,7 @@
     --brown: #4A2F22;
     --outline: #EAD6BA;
     --bubble-bg: #FFFDF9;
+    --dinamico-bg: #FFF9ED;
   }
   
   * { 
@@ -32,7 +33,7 @@
   
   body {
     font-family: 'Nunito', sans-serif;
-    background: var(--cream);
+    background: var(--dinamico-bg);
     color: var(--brown);
     margin: 0;
     padding: 16px 12px 40px;
@@ -41,6 +42,7 @@
     justify-content: center;
     background-image: radial-gradient(var(--outline) 1.2px, transparent 1.2px);
     background-size: 28px 28px;
+    transition: background-color 0.4s ease;
   }
   
   .wrap {
@@ -60,7 +62,6 @@
     margin-bottom: 16px;
     box-shadow: 0 8px 0 var(--outline);
   }
-
   header h1 {
     font-family: 'Baloo 2', sans-serif;
     font-size: clamp(28px, 7vw, 36px);
@@ -69,7 +70,6 @@
     margin: 0;
     line-height: 1.2;
   }
-
   .subtitle {
     font-weight: 800;
     color: var(--honey-dark);
@@ -78,7 +78,7 @@
     font-family: 'Baloo 2', sans-serif;
   }
 
-  /* ---- Barra de Abas Superior ---- */
+  /* ---- Barra de Abas ---- */
   .nav-tabs {
     display: flex;
     gap: 6px;
@@ -116,12 +116,11 @@
     justify-content: center;
     gap: 12px;
     margin-bottom: 18px;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.7);
     padding: 10px 16px;
     border-radius: 24px;
     border: 3px dashed var(--outline);
   }
-  
   .bubble {
     background: var(--bubble-bg);
     border: 3px solid var(--outline);
@@ -136,12 +135,10 @@
     box-shadow: 0 4px 0 var(--outline);
     text-align: left;
   }
-  
   .bubble::after {
     content: ""; position: absolute; left: -14px; top: 50%; transform: translateY(-50%);
     border: 8px solid transparent; border-right-color: var(--bubble-bg);
   }
-  
   .bear-svg {
     width: 68px; height: 68px; animation: gentle 3s infinite ease-in-out; flex-shrink: 0;
   }
@@ -150,27 +147,13 @@
     50% { transform: translateY(-4px) rotate(2deg); }
   }
 
-  /* ---- TELA: Menu de Acessos Principal ---- */
-  .menu-acessos {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    animation: fadeIn 0.3s ease-out;
-  }
-  
+  /* ---- MENU DE ACESSOS ---- */
+  .menu-acessos { display: flex; flex-direction: column; gap: 14px; animation: fadeIn 0.3s ease-out; }
   .card-acesso {
-    border: none;
-    border-radius: 24px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    color: white;
-    box-shadow: transform 0.1s;
+    border: none; border-radius: 24px; padding: 20px; display: flex;
+    align-items: center; justify-content: space-between; cursor: pointer; color: white;
   }
   .card-acesso:active { transform: translateY(4px); }
-  
   .card-acesso .info-acesso { text-align: left; }
   .card-acesso h2 { font-family: 'Baloo 2', sans-serif; font-size: 28px; font-weight: 800; margin: 0; line-height: 1.1; }
   .card-acesso p { margin: 2px 0 0; font-weight: 700; font-size: 14px; opacity: 0.9; }
@@ -181,27 +164,25 @@
   .m-colors { background: var(--purple); box-shadow: 0 8px 0 var(--purple-dark); }
   .m-shapes { background: var(--teal); box-shadow: 0 8px 0 var(--teal-dark); }
 
-  /* ---- GRIDS (ABC e NUMBERS) ---- */
-  .grid-comum {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    animation: fadeIn 0.3s ease-out;
-  }
+  /* ---- GRIDS COMUNS ---- */
+  .grid-comum { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; animation: fadeIn 0.3s ease-out; }
+  .grid-cores { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; animation: fadeIn 0.3s ease-out; }
   
   .btn-item {
-    background: var(--card);
-    border: 3px solid var(--outline);
-    border-radius: 22px;
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 34px;
-    font-weight: 800;
-    padding: 12px 0;
-    cursor: pointer;
-    box-shadow: 0 6px 0 var(--outline);
-    transition: transform 0.1s;
+    background: var(--card); border: 3px solid var(--outline); border-radius: 22px;
+    font-family: 'Baloo 2', sans-serif; font-size: 34px; font-weight: 800;
+    padding: 12px 0; cursor: pointer; box-shadow: 0 6px 0 var(--outline); transition: transform 0.1s;
   }
   .btn-item:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--outline); }
+
+  /* Botão Mancha de Cor */
+  .btn-cor {
+    border: none; border-radius: 24px; padding: 18px; color: white;
+    font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 800;
+    cursor: pointer; transition: transform 0.1s; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .btn-cor:active { transform: scale(0.95); }
+  .btn-cor span { font-size: 13px; font-weight: 700; opacity: 0.95; font-family: 'Nunito', sans-serif; }
 
   /* ---- VISUALIZAÇÕES DE DETALHES ---- */
   .hidden { display: none !important; }
@@ -222,11 +203,10 @@
   }
   .btn-voltar:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--honey-dark); }
 
-  .item-gigante { font-family: 'Baloo 2', sans-serif; font-size: 72px; font-weight: 800; margin: 0; line-height: 1; }
+  .item-gigante { font-family: 'Baloo 2', sans-serif; font-size: 64px; font-weight: 800; margin: 0; line-height: 1; }
 
   /* Cards de Palavras */
   .container-palavras { display: flex; flex-direction: column; gap: 14px; }
-  
   .card-palavra {
     background: var(--card); border: 3px solid var(--outline); border-radius: 24px;
     padding: 14px 20px; display: flex; align-items: center; gap: 18px; cursor: pointer;
@@ -242,18 +222,10 @@
   .palavra-pt { font-size: 17px; font-weight: 700; color: #6E5A4E; }
   .flag { margin-right: 6px; font-size: 16px; }
 
-  /* ---- Painel Lúdico de Quantidades (Numbers) ---- */
-  .box-quantidades {
-    background: white; border: 3px solid var(--outline); border-radius: 28px;
-    padding: 24px 16px; box-shadow: 0 6px 0 var(--outline);
-  }
-  .grid-objetos {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 16px;
-  }
-  .objeto-contável {
-    font-size: 48px; cursor: pointer; display: inline-block;
-    transition: transform 0.15s; user-select: none;
-  }
+  /* Box Quantidades (Numbers) */
+  .box-quantidades { background: white; border: 3px solid var(--outline); border-radius: 28px; padding: 24px 16px; box-shadow: 0 6px 0 var(--outline); }
+  .grid-objetos { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 16px; }
+  .objeto-contável { font-size: 48px; cursor: pointer; display: inline-block; transition: transform 0.15s; user-select: none; }
   .objeto-contável:active { transform: scale(1.4); }
   .objeto-contável.contado { animation: popEmoji 0.3s ease; }
 
@@ -262,11 +234,8 @@
     background: rgba(226, 207, 180, 0.3); padding: 6px 12px; border-radius: 99px; display: inline-block;
   }
 
-  /* ---- Telas de Placeholder ---- */
-  .tela-placeholder {
-    background: white; border: 4px solid var(--outline); border-radius: 28px;
-    padding: 40px 20px; box-shadow: 0 8px 0 var(--outline);
-  }
+  /* ---- Placeholder Formas ---- */
+  .tela-placeholder { background: white; border: 4px solid var(--outline); border-radius: 28px; padding: 40px 20px; box-shadow: 0 8px 0 var(--outline); }
   .tela-placeholder h3 { font-family: 'Baloo 2', sans-serif; font-size: 32px; margin: 10px 0; }
 
   /* ---- Rodapé YouTube ---- */
@@ -287,7 +256,7 @@
     <p class="subtitle">Play &amp; Learn • English &amp; Português</p>
   </header>
 
-  <!-- Abas Superiores de Navegação -->
+  <!-- Abas Superiores -->
   <div id="topTabs" class="nav-tabs hidden">
     <button class="tab-btn tab-home" onclick="mudarMundo('home')">🏠 HOME</button>
     <button class="tab-btn tab-abc" onclick="mudarMundo('abc')">🔤 ABC</button>
@@ -309,7 +278,7 @@
     <div class="bubble" id="bubbleBen">Hi! Welcome! Escolha um mundo de aventuras!</div>
   </div>
 
-  <!-- ==================== TELA 1: MENU DE ACESSOS ==================== -->
+  <!-- TELA 1: MENU DE ACESSOS -->
   <div id="telaHome" class="menu-acessos">
     <button class="card-acesso m-abc" onclick="mudarMundo('abc')">
       <div class="info-acesso"><h2>ABC WORLD</h2><p>Explore as letras e palavras</p></div><span class="ico">🔤</span>
@@ -325,10 +294,10 @@
     </button>
   </div>
 
-  <!-- ==================== TELA 2: MUNDO DO ABC ==================== -->
+  <!-- TELA 2: MUNDO DO ABC -->
   <div id="telaAbc" class="grid-comum hidden"></div>
 
-  <!-- ==================== TELA 3: DETALHES DO ABC ==================== -->
+  <!-- TELA 3: DETALHES DO ABC -->
   <div id="telaDetalhesAbc" class="view-detalhes hidden">
     <div class="topo-detalhes">
       <button class="btn-voltar" onclick="mudarMundo('abc')">🔙 Voltar</button>
@@ -339,17 +308,16 @@
     <div class="container-palavras" id="listaPalavras"></div>
   </div>
 
-  <!-- ==================== TELA 4: MUNDO DOS NÚMEROS ==================== -->
+  <!-- TELA 4: MUNDO DOS NÚMEROS -->
   <div id="telaNum" class="grid-comum hidden"></div>
 
-  <!-- ==================== TELA 5: DETALHES DOS NÚMEROS ==================== -->
+  <!-- TELA 5: DETALHES DOS NÚMEROS -->
   <div id="telaDetalhesNum" class="view-detalhes hidden">
     <div class="topo-detalhes">
       <button class="btn-voltar" onclick="mudarMundo('num')">🔙 Voltar</button>
       <div class="item-gigante" id="numTitulo">1</div>
       <div style="width: 76px;"></div>
     </div>
-    
     <div class="box-quantidades">
       <div class="textos-palavra" style="text-align: center; justify-content: center; align-items: center; margin-bottom: 10px;">
         <span class="palavra-en" id="numEn" style="color: var(--berry); font-size: 32px;">One</span>
@@ -360,11 +328,21 @@
     </div>
   </div>
 
-  <!-- ==================== TELAS DE PLACEHOLDER (FUTURAS) ==================== -->
-  <div id="telaColors" class="tela-placeholder hidden">
-    <span style="font-size:60px;">🎨</span><h3 style="color:var(--purple);">COLORS WORLD</h3><p>O mundo das cores chega em breve...</p>
+  <!-- ==================== NOVO TELA 6: MUNDO DAS CORES ==================== -->
+  <div id="telaColors" class="grid-cores hidden"></div>
+
+  <!-- TELA 7: DETALHES DAS CORES -->
+  <div id="telaDetalhesColors" class="view-detalhes hidden">
+    <div class="topo-detalhes">
+      <button class="btn-voltar" onclick="mudarMundo('colors')">🔙 Voltar</button>
+      <div class="item-gigante" id="colorTitulo">Red</div>
+      <div style="width: 76px;"></div>
+    </div>
+    <div class="dica">Toque nas figuras da cor! 🎨🔊</div>
+    <div class="container-palavras" id="listaObjetosCores"></div>
   </div>
 
+  <!-- TELA PLACEHOLDER: FORMAS -->
   <div id="telaShapes" class="tela-placeholder hidden">
     <span style="font-size:60px;">🔷</span><h3 style="color:var(--teal);">SHAPES WORLD</h3><p>Formas geométricas divertidas estão chegando!</p>
   </div>
@@ -406,33 +384,39 @@ const ALFABETO_DADOS = {
   Z: [{ en: "Zebra", pt: "Zebra", emoji: "🦓" }, { en: "Zipper", pt: "Zíper", emoji: "🤐" }, { en: "Zoo", pt: "Zoológico", emoji: "🏡" }]
 };
 
-// BANCO DE DADOS: NUMBERS (1 a 10 com Emojis Temáticos)
+// BANCO DE DADOS: NUMBERS
 const NUMEROS_DADOS = {
-  "1": { en: "One", pt: "Um", emoji: "🦁" },
-  "2": { en: "Two", pt: "Dois", emoji: "🎈" },
-  "3": { en: "Three", pt: "Três", emoji: "🍓" },
-  "4": { en: "Four", pt: "Quatro", emoji: "🚗" },
-  "5": { en: "Five", pt: "Cinco", emoji: "⭐" },
-  "6": { en: "Six", pt: "Seis", emoji: "🐠" },
-  "7": { en: "Seven", pt: "Sete", emoji: "🍎" },
-  "8": { en: "Eight", pt: "Oito", emoji: "🍪" },
-  "9": { en: "Nine", pt: "Nove", emoji: "🦋" },
-  "10": { en: "Ten", pt: "Dez", emoji: "🐝" }
+  "1": { en: "One", pt: "Um", emoji: "🦁" }, "2": { en: "Two", pt: "Dois", emoji: "🎈" }, "3": { en: "Three", pt: "Três", emoji: "🍓" },
+  "4": { en: "Four", pt: "Quatro", emoji: "🚗" }, "5": { en: "Five", pt: "Cinco", emoji: "⭐" }, "6": { en: "Six", pt: "Seis", emoji: "🐠" },
+  "7": { en: "Seven", pt: "Sete", emoji: "🍎" }, "8": { en: "Eight", pt: "Oito", emoji: "🍪" }, "9": { en: "Nine", pt: "Nove", emoji: "🦋" }, "10": { en: "Ten", pt: "Dez", emoji: "🐝" }
 };
 
-const CORES = ["#5B8C5A", "#E8604E", "#8B639B", "#3E7C74"];
+// ==================== NOVO BANCO DE DADOS: COLORS ====================
+const CORES_DADOS = {
+  Red: { pt: "Vermelho", hex: "#E8604E", bgPastel: "#FFEEEB", objetos: [{ en: "Strawberry", pt: "Morango", emoji: "🍓" }, { en: "Heart", pt: "Coração", emoji: "❤️" }, { en: "Tomato", pt: "Tomate", emoji: "🍅" }] },
+  Blue: { pt: "Azul", hex: "#3A7BD5", bgPastel: "#EBF3FF", objetos: [{ en: "Whale", pt: "Baleia", emoji: "🐳" }, { en: "Ocean", pt: "Oceano", emoji: "🌊" }, { en: "Sky", pt: "Céu", emoji: "☁️" }] },
+  Green: { pt: "Verde", hex: "#5B8C5A", bgPastel: "#EEF7EE", objetos: [{ en: "Frog", pt: "Sapo", emoji: "🐸" }, { en: "Tree", pt: "Árvore", emoji: "🌳" }, { en: "Leaf", pt: "Folha", emoji: "🍃" }] },
+  Yellow: { pt: "Amarelo", hex: "#F4C430", bgPastel: "#FFFBEA", objetos: [{ en: "Sun", pt: "Sol", emoji: "☀️" }, { en: "Banana", pt: "Banana", emoji: "🍌" }, { en: "Duck", pt: "Pato", emoji: "🦆" }] },
+  Orange: { pt: "Laranja", hex: "#F5A93F", bgPastel: "#FFF4E5", objetos: [{ en: "Orange", pt: "Laranja", emoji: "🍊" }, { en: "Fox", pt: "Raposa", emoji: "🦊" }, { en: "Carrot", pt: "Cenoura", emoji: "🥕" }] },
+  Purple: { pt: "Roxo", hex: "#8B639B", bgPastel: "#F6F0F8", objetos: [{ en: "Grapes", pt: "Uvas", emoji: "🍇" }, { en: "Octopus", pt: "Polvo", emoji: "🐙" }, { en: "Magic", pt: "Mágica", emoji: "🔮" }] },
+  Pink: { pt: "Rosa", hex: "#E57E9E", bgPastel: "#FFF0F4", objetos: [{ en: "Flamingo", pt: "Flamingo", emoji: "🦩" }, { en: "Ice cream", pt: "Sorvete", emoji: "🍦" }, { en: "Flower", pt: "Flor", emoji: "🌸" }] },
+  Brown: { pt: "Marrom", hex: "#7A5230", bgPastel: "#F5ECE6", objetos: [{ en: "Bear", pt: "Urso", emoji: "🐻" }, { en: "Chocolate", pt: "Chocolate", emoji: "🍫" }, { en: "Monkey", pt: "Macaco", emoji: "🐵" }] }
+};
+
+const CORES_PALETA = ["#5B8C5A", "#E8604E", "#8B639B", "#3E7C74"];
 const bubbleBen = document.getElementById('bubbleBen');
 
 function mudarMundo(mundo) {
   speechSynthesis.cancel();
+  document.body.style.backgroundColor = "#FFF9ED"; // reseta fundo
   
-  // Esconde todas as telas do sistema
   document.getElementById('telaHome').classList.add('hidden');
   document.getElementById('telaAbc').classList.add('hidden');
   document.getElementById('telaDetalhesAbc').classList.add('hidden');
   document.getElementById('telaNum').classList.add('hidden');
   document.getElementById('telaDetalhesNum').classList.add('hidden');
   document.getElementById('telaColors').classList.add('hidden');
+  document.getElementById('telaDetalhesColors').classList.add('hidden');
   document.getElementById('telaShapes').classList.add('hidden');
   
   if (mundo === 'home') {
@@ -449,7 +433,7 @@ function mudarMundo(mundo) {
       bubbleBen.textContent = "Welcome to NUMBERS WORLD! Let's count!";
       document.getElementById('telaNum').classList.remove('hidden');
     } else if (mundo === 'colors') {
-      bubbleBen.textContent = "Welcome to COLORS WORLD! Tudo colorido!";
+      bubbleBen.textContent = "Welcome to COLORS WORLD! Pintando o mundo!";
       document.getElementById('telaColors').classList.remove('hidden');
     } else if (mundo === 'shapes') {
       bubbleBen.textContent = "Welcome to SHAPES WORLD! Formas geométricas!";
@@ -458,30 +442,24 @@ function mudarMundo(mundo) {
   }
 }
 
-// Inicia Painel Alfabético
+// ABC Lógica
 function initAbcGrid() {
   const gridAbc = document.getElementById('telaAbc');
   gridAbc.innerHTML = '';
   Object.keys(ALFABETO_DADOS).forEach((letra, i) => {
     const btn = document.createElement('button');
-    btn.className = 'btn-item';
-    btn.textContent = letra;
-    const cor = CORES[i % CORES.length];
-    btn.style.color = cor;
-    btn.style.borderColor = cor + "40";
+    btn.className = 'btn-item'; btn.textContent = letra;
+    const cor = CORES_PALETA[i % CORES_PALETA.length];
+    btn.style.color = cor; btn.style.borderColor = cor + "40";
     btn.onclick = () => verLetra(letra, cor);
     gridAbc.appendChild(btn);
   });
 }
-
 function verLetra(letra, corDestaque) {
   document.getElementById('telaAbc').classList.add('hidden');
   document.getElementById('telaDetalhesAbc').classList.remove('hidden');
-  
   const letraTitulo = document.getElementById('letraTitulo');
-  letraTitulo.textContent = letra;
-  letraTitulo.style.color = corDestaque;
-  
+  letraTitulo.textContent = letra; letraTitulo.style.color = corDestaque;
   bubbleBen.textContent = "Letra " + letra + "! Toque nos cards abaixo!";
   falarTexto(letra, 'en-US');
 
@@ -489,22 +467,113 @@ function verLetra(letra, corDestaque) {
   listaPalavras.innerHTML = '';
   ALFABETO_DADOS[letra].forEach(item => {
     const card = document.createElement('div');
-    card.className = 'card-palavra';
-    card.style.borderColor = corDestaque + "60";
-    card.onclick = () => interagirComPalavra(item, card);
-
-    card.innerHTML = `
-      <span class="emoji">${item.emoji}</span>
-      <div class="textos-palavra">
-        <span class="palavra-en" style="color: ${corDestaque}"><span class="flag">🇺🇸</span>${item.en}</span>
-        <span class="palavra-pt"><span class="flag">🇧🇷</span>${item.pt}</span>
-      </div>
-    `;
+    card.className = 'card-palavra'; card.style.borderColor = corDestaque + "60";
+    card.onclick = () => interagirComCard(item, card, corDestaque);
+    card.innerHTML = `<span class="emoji">${item.emoji}</span><div class="textos-palavra"><span class="palavra-en" style="color: ${corDestaque}"><span class="flag">🇺🇸</span>${item.en}</span><span class="palavra-pt"><span class="flag">🇧🇷</span>${item.pt}</span></div>`;
     listaPalavras.appendChild(card);
   });
 }
 
-async function interagirComPalavra(item, elementoCard) {
+// NUMBERS Lógica
+function initNumbersGrid() {
+  const gridNum = document.getElementById('telaNum');
+  gridNum.innerHTML = '';
+  Object.keys(NUMEROS_DADOS).forEach((num, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-item'; btn.textContent = num;
+    const cor = CORES_PALETA[i % CORES_PALETA.length];
+    btn.style.color = cor; btn.style.borderColor = cor + "40";
+    btn.onclick = () => verNumero(num, cor);
+    gridNum.appendChild(btn);
+  });
+}
+async function verNumero(num, corDestaque) {
+  document.getElementById('telaNum').classList.add('hidden');
+  document.getElementById('telaDetalhesNum').classList.remove('hidden');
+  document.getElementById('numTitulo').textContent = num;
+  document.getElementById('numTitulo').style.color = corDestaque;
+  const dados = NUMEROS_DADOS[num];
+  document.getElementById('numEn').textContent = dados.en;
+  document.getElementById('numEn').style.color = corDestaque;
+  document.getElementById('numPt').textContent = dados.pt;
+  bubbleBen.textContent = `Number ${num}! Let's count!`;
+  
+  await falarTexto(num, 'en-US');
+  await new Promise(r => setTimeout(r, 100));
+  await falarTexto(dados.en, 'en-US');
+
+  const gridObjetos = document.getElementById('gridObjetosContagem');
+  gridObjetos.innerHTML = '';
+  for (let k = 1; k <= parseInt(num); k++) {
+    const spanObj = document.createElement('span');
+    spanObj.className = 'objeto-contável'; spanObj.textContent = dados.emoji;
+    spanObj.onclick = async () => {
+      speechSynthesis.cancel();
+      spanObj.classList.remove('contado'); void spanObj.offsetWidth; spanObj.classList.add('contado');
+      bubbleBen.textContent = `Contando... ${k}!`;
+      await falarTexto(k.toString(), 'en-US');
+    };
+    gridObjetos.appendChild(spanObj);
+  }
+}
+
+// ==================== NOVO: COLORS LÓGICA ====================
+function initColorsGrid() {
+  const gridColors = document.getElementById('telaColors');
+  gridColors.innerHTML = '';
+  Object.keys(CORES_DADOS).forEach(corNome => {
+    const dados = CORES_DADOS[corNome];
+    const btn = document.createElement('button');
+    btn.className = 'btn-cor';
+    btn.style.backgroundColor = dados.hex;
+    btn.style.boxShadow = `0 6px 0 ${dados.hex}B0`;
+    btn.innerHTML = `${corNome} <span>(${dados.pt})</span>`;
+    btn.onclick = () => verCorDetalhes(corNome);
+    gridColors.appendChild(btn);
+  });
+}
+
+async function verCorDetalhes(corNome) {
+  document.getElementById('telaColors').classList.add('hidden');
+  document.getElementById('telaDetalhesColors').classList.remove('hidden');
+  
+  const dados = CORES_DADOS[corNome];
+  
+  // Troca o fundo da tela para uma cor pastel fofa da cor escolhida
+  document.body.style.backgroundColor = dados.bgPastel;
+  
+  const colorTitulo = document.getElementById('colorTitulo');
+  colorTitulo.textContent = corNome;
+  colorTitulo.style.color = dados.hex;
+  
+  bubbleBen.textContent = `${corNome} é a cor ${dados.pt}!`;
+  
+  await falarTexto(corNome, 'en-US');
+  await new Promise(r => setTimeout(r, 150));
+  await falarTexto(dados.pt, 'pt-BR');
+
+  const listaObjetos = document.getElementById('listaObjetosCores');
+  listaObjetos.innerHTML = '';
+  
+  dados.objetos.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card-palavra';
+    card.style.borderColor = dados.hex + "60";
+    card.onclick = () => interagirComCard(item, card, dados.hex);
+    
+    card.innerHTML = `
+      <span class="emoji">${item.emoji}</span>
+      <div class="textos-palavra">
+        <span class="palavra-en" style="color: ${dados.hex}"><span class="flag">🇺🇸</span>${item.en}</span>
+        <span class="palavra-pt"><span class="flag">🇧🇷</span>${item.pt}</span>
+      </div>
+    `;
+    listaObjetos.appendChild(card);
+  });
+}
+
+// Compartilhado para ABC e Colors
+async function interagirComCard(item, elementoCard, corDestaque) {
   speechSynthesis.cancel();
   elementoCard.classList.remove('animar');
   void elementoCard.offsetWidth;
@@ -516,84 +585,22 @@ async function interagirComPalavra(item, elementoCard) {
   await falarTexto(item.pt, 'pt-BR');
 }
 
-// ==================== NOVO: MUNDO DOS NÚMEROS ====================
-function initNumbersGrid() {
-  const gridNum = document.getElementById('telaNum');
-  gridNum.innerHTML = '';
-  Object.keys(NUMEROS_DADOS).forEach((num, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'btn-item';
-    btn.textContent = num;
-    const cor = CORES[i % CORES.length];
-    btn.style.color = cor;
-    btn.style.borderColor = cor + "40";
-    btn.onclick = () => verNumero(num, cor);
-    gridNum.appendChild(btn);
-  });
-}
-
-async function verNumero(num, corDestaque) {
-  document.getElementById('telaNum').classList.add('hidden');
-  document.getElementById('telaDetalhesNum').classList.remove('hidden');
-  
-  const numTitulo = document.getElementById('numTitulo');
-  numTitulo.textContent = num;
-  numTitulo.style.color = corDestaque;
-  
-  const dados = NUMEROS_DADOS[num];
-  document.getElementById('numEn').textContent = dados.en;
-  document.getElementById('numEn').style.color = corDestaque;
-  document.getElementById('numPt').textContent = dados.pt;
-  
-  bubbleBen.textContent = `Number ${num}! Let's count!`;
-  
-  // Fala o número principal
-  await falarTexto(num, 'en-US');
-  await new Promise(r => setTimeout(r, 100));
-  await falarTexto(dados.en, 'en-US');
-
-  // Gera os emojis clicáveis para contagem progressiva
-  const gridObjetos = document.getElementById('gridObjetosContagem');
-  gridObjetos.innerHTML = '';
-  
-  const total = parseInt(num);
-  for (let k = 1; k <= total; k++) {
-    const spanObj = document.createElement('span');
-    spanObj.className = 'objeto-contável';
-    spanObj.textContent = dados.emoji;
-    
-    // Ao clicar em cada emoji individual da fila
-    spanObj.onclick = async () => {
-      speechSynthesis.cancel();
-      spanObj.classList.remove('contado');
-      void spanObj.offsetWidth;
-      spanObj.classList.add('contado');
-      
-      bubbleBen.textContent = `Contando... ${k}!`;
-      await falarTexto(k.toString(), 'en-US');
-    };
-    
-    gridObjetos.appendChild(spanObj);
-  }
-}
-
-// Motor de Voz Comum
+// Motor de Voz
 function falarTexto(texto, idioma) {
   return new Promise((resolve) => {
     if (!('speechSynthesis' in window)) { resolve(); return; }
     const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = idioma;
-    utterance.rate = 0.83; 
-    utterance.pitch = 1.15; 
-    utterance.onend = resolve;
-    utterance.onerror = resolve;
+    utterance.rate = 0.83; utterance.pitch = 1.15;
+    utterance.onend = resolve; utterance.onerror = resolve;
     speechSynthesis.speak(utterance);
   });
 }
 
-// Inicializadores Globais
+// Inicializações
 initAbcGrid();
 initNumbersGrid();
+initColorsGrid();
 mudarMundo('home');
 </script>
 </body>
