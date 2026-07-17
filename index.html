@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #FFF6E5;
+    --cream: #FFF8EB;
     --card: #FFFFFF;
     --honey: #F5A93F;
     --honey-dark: #D98A1E;
@@ -17,148 +17,335 @@
     --berry: #E8604E;
     --teal: #3E7C74;
     --brown: #4A2F22;
-    --outline: #EAD9B8;
+    --outline: #E2CFB4;
+    --bubble-bg: #FFFDF9;
   }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
+  * { 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; 
+  }
+  
   body {
     font-family: 'Nunito', sans-serif;
     background: var(--cream);
     color: var(--brown);
     margin: 0;
-    padding: 20px 14px 40px;
+    padding: 16px 12px 40px;
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    background-image: radial-gradient(var(--outline) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
-  .honeycomb-bg {
-    position: fixed; inset: 0; z-index: 0; opacity: 0.25; pointer-events: none;
-  }
+  
   .wrap {
-    position: relative; z-index: 1; width: 100%; max-width: 600px; text-align: center;
-  }
-  header h1 {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: clamp(28px, 6vw, 36px);
-    color: var(--forest-dark);
-    margin: 10px 0 5px;
-  }
-  .subtitle {
-    font-weight: 700; color: var(--honey-dark); margin: 0 0 20px; font-size: 16px;
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* ---- Tela 1: Painel do Alfabeto ---- */
+  /* ---- Brand Header (Dinâmico) ---- */
+  header {
+    background: var(--card);
+    border: 4px solid var(--outline);
+    border-radius: 28px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 0 var(--outline);
+    transition: all 0.3s ease;
+  }
+  
+  header.mini {
+    padding: 8px 16px;
+    margin-bottom: 14px;
+    border-radius: 18px;
+    box-shadow: 0 4px 0 var(--outline);
+  }
+
+  header h1 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: clamp(28px, 7vw, 38px);
+    font-weight: 800;
+    color: var(--forest-dark);
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  header.mini h1 {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-weight: 800;
+    color: var(--honey-dark);
+    margin: 4px 0 0;
+    font-size: 15px;
+    font-family: 'Baloo 2', sans-serif;
+  }
+  
+  header.mini .subtitle { display: none; }
+
+  /* ---- Personagem Ben & Balão ---- */
+  .bear-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.5);
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: 2px dashed var(--outline);
+  }
+  
+  .bubble {
+    background: var(--bubble-bg);
+    border: 3px solid var(--outline);
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--brown);
+    position: relative;
+    flex: 1;
+    box-shadow: 0 4px 0 var(--outline);
+    text-align: left;
+  }
+  
+  .bubble::after {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 8px solid transparent;
+    border-right-color: var(--bubble-bg);
+  }
+  .bubble::before {
+    content: "";
+    position: absolute;
+    left: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 9px solid transparent;
+    border-right-color: var(--outline);
+    z-index: -1;
+  }
+  
+  .bear-svg {
+    width: 68px;
+    height: 68px;
+    animation: gentle 3s infinite ease-in-out;
+    flex-shrink: 0;
+  }
+  
+  @keyframes gentle {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-4px) rotate(2deg); }
+  }
+
+  /* ---- TELA 1: Painel do Alfabeto ---- */
   .grid-abc {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-top: 10px;
+    animation: fadeIn 0.3s ease-out;
   }
+  
   .btn-letra {
     background: var(--card);
     border: 3px solid var(--outline);
-    border-radius: 18px;
+    border-radius: 22px;
     font-family: 'Baloo 2', sans-serif;
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 800;
-    color: var(--forest-dark);
-    padding: 15px 0;
-    cursor: pointer;
-    box-shadow: 0 5px 0 var(--outline);
-    transition: transform 0.1s, box-shadow 0.1s;
-  }
-  .btn-letra:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 var(--outline);
-  }
-
-  /* ---- Tela 2: Detalhes da Letra ---- */
-  .hidden { display: none !important; }
-  .view-detalhes {
-    animation: fadeIn 0.3s ease-out;
-  }
-  @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-  .topo-detalhes {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
-  }
-  .btn-voltar {
-    background: var(--honey);
-    border: none; border-radius: 50px;
-    color: white; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px;
-    padding: 10px 18px; cursor: pointer; box-shadow: 0 4px 0 var(--honey-dark);
-  }
-  .btn-voltar:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--honey-dark); }
-
-  .letra-gigante {
-    font-family: 'Baloo 2', sans-serif; font-size: 90px; font-weight: 800;
-    margin: 0; line-height: 1; text-shadow: 4px 4px 0 var(--outline);
-  }
-
-  /* Cards de Palavras */
-  .container-palavras {
-    display: flex; flex-direction: column; gap: 16px; margin-top: 15px;
-  }
-  .card-palavra {
-    background: var(--card);
-    border: 4px solid var(--outline);
-    border-radius: 24px;
-    padding: 16px;
-    display: flex; align-items: center; gap: 20px;
+    padding: 12px 0;
     cursor: pointer;
     box-shadow: 0 6px 0 var(--outline);
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: transform 0.1s, box-shadow 0.1s;
   }
-  .card-palavra:active {
-    transform: scale(0.98) translateY(4px);
+  
+  .btn-letra:active {
+    transform: translateY(4px);
     box-shadow: 0 2px 0 var(--outline);
   }
-  .card-palavra .emoji { font-size: 55px; }
-  .textos-palavra { text-align: left; display: flex; flex-direction: column; gap: 2px; }
-  .palavra-en { font-family: 'Baloo 2', sans-serif; font-size: 24px; font-weight: 800; color: var(--teal); }
-  .palavra-pt { font-size: 18px; font-weight: 700; color: var(--berry); }
-  .flag { margin-right: 6px; font-size: 16px; }
 
-  /* Instrução fofa */
-  .dica { font-weight: 700; color: #8a7a5f; margin-top: 20px; font-size: 15px; }
-
-  /* Balão do Urso */
-  .bear-box { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px; }
-  .bubble {
-    background: white; border: 3px solid var(--outline); border-radius: 18px;
-    padding: 10px 14px; font-family: 'Baloo 2', sans-serif; font-weight: 700;
-    color: var(--forest-dark); position: relative; max-width: 200px;
+  /* ---- TELA 2: Visualização da Letra ---- */
+  .hidden { display: none !important; }
+  
+  .view-detalhes {
+    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .bubble::after {
-    content:""; position: absolute; left: -14px; top: 50%; transform: translateY(-50%);
-    border: 8px solid transparent; border-right-color: white;
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  .bear-svg { width: 70px; height: 70px; animation: gentle 3s infinite ease-in-out; }
-  @keyframes gentle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
+  .topo-detalhes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    background: var(--card);
+    padding: 10px 16px;
+    border-radius: 24px;
+    border: 3px solid var(--outline);
+  }
+  
+  .btn-voltar {
+    background: var(--honey);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 10px 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--honey-dark);
+  }
+  
+  .btn-voltar:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--honey-dark);
+  }
+
+  .letra-gigante {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 72px;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+  }
+
+  /* ---- Cards Estilo Adesivo ---- */
+  .container-palavras {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  .card-palavra {
+    background: var(--card);
+    border: 3px solid var(--outline);
+    border-radius: 24px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 var(--outline);
+    transition: transform 0.1s, box-shadow 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-palavra::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: radial-gradient(#000 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+  }
+  
+  .card-palavra:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--outline);
+  }
+  
+  .card-palavra.animar .emoji {
+    animation: popEmoji 0.4s ease;
+  }
+  
+  @keyframes popEmoji {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3) rotate(-10deg); }
+    100% { transform: scale(1); }
+  }
+
+  .card-palavra .emoji {
+    font-size: 56px;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  
+  .textos-palavra {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .palavra-en {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+  }
+  
+  .palavra-pt {
+    font-size: 17px;
+    font-weight: 700;
+    color: #6E5A4E;
+  }
+  
+  .flag {
+    margin-right: 6px;
+    font-size: 16px;
+    vertical-align: middle;
+  }
+
+  .dica {
+    font-weight: 800;
+    color: #8A7A5F;
+    margin: 12px 0;
+    font-size: 14px;
+    background: rgba(226, 207, 180, 0.3);
+    padding: 6px 12px;
+    border-radius: 99px;
+    display: inline-block;
+    align-self: center;
+  }
+
+  /* ---- Rodapé YouTube ---- */
   .yt-link {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    margin: 30px auto 0; max-width: 340px; background: #FF3B30; color: #fff;
-    text-decoration: none; font-family: 'Baloo 2', sans-serif; font-weight: 700;
-    font-size: 15px; padding: 12px 20px; border-radius: 999px; box-shadow: 0 4px 0 #C6281F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    background: #FF3B30;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    box-shadow: 0 5px 0 #C6281F;
+    transition: transform 0.1s;
+  }
+  
+  .yt-link:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #C6281F;
   }
 </style>
 </head>
 <body>
 
-<svg class="honeycomb-bg" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <pattern id="hexpat" width="44" height="76" patternUnits="userSpaceOnUse">
-      <polygon points="22,0 44,12.7 44,38 22,50.7 0,38 0,12.7" fill="none" stroke="#F5A93F" stroke-width="1.5" opacity="0.4"/>
-    </pattern>
-  </defs>
-  <rect width="100%" height="100%" fill="url(#hexpat)"/>
-</svg>
-
 <div class="wrap">
-  <!-- Cabeçalho Principal -->
-  <header>
+  <!-- Cabeçalho Principal (Encolhe na Tela 2) -->
+  <header id="mainHeader">
     <h1>As Aventuras de Ben 🐻</h1>
-    <p class="subtitle">Toque em uma letra para explorar!</p>
+    <p class="subtitle">English &amp; Português • ABC Interativo</p>
   </header>
 
   <!-- Balão e Ursinho Ben -->
@@ -171,32 +358,31 @@
       <ellipse cx="60" cy="70" rx="7" ry="5" fill="#4A2F22"/>
       <path d="M60 74 Q60 82 50 82 M60 74 Q60 82 70 82" stroke="#4A2F22" stroke-width="3" fill="none" stroke-linecap="round"/>
     </svg>
-    <div class="bubble" id="bubbleBen">Hi! Vamos aprender inglês juntos?</div>
+    <div class="bubble" id="bubbleBen">Hi! Escolha uma letrinha para começar!</div>
   </div>
 
   <!-- TELA 1: Menu de Letras -->
   <div id="viewMenu" class="grid-abc"></div>
 
-  <!-- TELA 2: Detalhes da Letra (Começa escondida) -->
+  <!-- TELA 2: Detalhes da Letra -->
   <div id="viewDetalhes" class="view-detalhes hidden">
     <div class="topo-detalhes">
-      <button class="btn-voltar" onclick="voltarParaMenu()">🐻 Voltar</button>
-      <div class="letra-gigante" id="letraTitulo" style="color: var(--berry);">A</div>
-      <div style="width: 75px;"></div> <!-- Espaçador para centralizar -->
+      <button class="btn-voltar" onclick="voltarParaMenu()">🐻 Menu</button>
+      <div class="letra-gigante" id="letraTitulo">A</div>
+      <div style="width: 78px;"></div>
     </div>
     
-    <p class="dica">Toque nas figuras para ouvir o Ben falar! 🔊</p>
+    <div class="dica">Toque para escutar o Ben falar! 🔊</div>
     <div class="container-palavras" id="listaPalavras"></div>
   </div>
 
   <!-- Link do YouTube -->
   <a class="yt-link" href="https://www.youtube.com/@As.aventurasdeben" target="_blank" rel="noopener noreferrer">
-    ▶️ Assistir As Aventuras de Ben no YouTube
+    ▶️ Ver mais Aventuras do Ben no YouTube
   </a>
 </div>
 
 <script>
-// Banco de dados expandido: 3 palavras super interativas para CADA letra do alfabeto!
 const ALFABETO_DADOS = {
   A: [
     { en: "Apple", pt: "Maçã", emoji: "🍎" },
@@ -256,7 +442,7 @@ const ALFABETO_DADOS = {
   L: [
     { en: "Lion", pt: "Leão", emoji: "🦁" },
     { en: "Lemon", pt: "Limão", emoji: "🍋" },
-    { en: "Lion", pt: "Lâmpada", emoji: "💡" }
+    { en: "Lamp", pt: "Lâmpada", emoji: "💡" }
   ],
   M: [
     { en: "Moon", pt: "Lua", emoji: "🌙" },
@@ -336,43 +522,48 @@ const viewDetalhes = document.getElementById('viewDetalhes');
 const letraTitulo = document.getElementById('letraTitulo');
 const listaPalavras = document.getElementById('listaPalavras');
 const bubbleBen = document.getElementById('bubbleBen');
+const mainHeader = document.getElementById('mainHeader');
 
-// Inicializa o Painel de Letras Principal
 function initMenu() {
   viewMenu.innerHTML = '';
+  mainHeader.classList.remove('mini');
   Object.keys(ALFABETO_DADOS).forEach((letra, i) => {
     const btn = document.createElement('button');
     btn.className = 'btn-letra';
     btn.textContent = letra;
-    btn.style.color = CORES[i % CORES.length];
-    btn.onclick = () => verLetra(letra);
+    const cor = CORES[i % CORES.length];
+    btn.style.color = cor;
+    btn.style.borderColor = varColorWithAlpha(cor, 0.3);
+    btn.onclick = () => verLetra(letra, cor);
     viewMenu.appendChild(btn);
   });
 }
 
-// Navega para a página da letra escolhida
-function verLetra(letra) {
+function verLetra(letra, corDestaque) {
   speechSynthesis.cancel();
   viewMenu.classList.add('hidden');
   viewDetalhes.classList.remove('hidden');
+  mainHeader.classList.add('mini'); // Encolhe o cabeçalho principal
   
   letraTitulo.textContent = letra;
-  letraTitulo.style.color = CORES[letra.charCodeAt(0) % CORES.length];
+  letraTitulo.style.color = corDestaque;
   
-  bubbleBen.textContent = "Letra " + letra + "! O que vamos descobrir?";
+  bubbleBen.textContent = "Letra " + letra + "! Toque nas figuras abaixo!";
   falarTexto(letra, 'en-US');
 
-  // Renderiza as 3 palavras dinâmicas daquela letra
   listaPalavras.innerHTML = '';
   ALFABETO_DADOS[letra].forEach(item => {
     const card = document.createElement('div');
     card.className = 'card-palavra';
-    card.onclick = () => interagirComPalavra(item);
+    card.style.borderColor = varColorWithAlpha(corDestaque, 0.4);
+    
+    // Passamos o próprio elemento clicado para aplicar a animação
+    card.onclick = () => interagirComPalavra(item, card, corDestaque);
 
     card.innerHTML = `
       <span class="emoji">${item.emoji}</span>
       <div class="textos-palavra">
-        <span class="palavra-en"><span class="flag">🇺🇸</span>${item.en}</span>
+        <span class="palavra-en" style="color: ${corDestaque}"><span class="flag">🇺🇸</span>${item.en}</span>
         <span class="palavra-pt"><span class="flag">🇧🇷</span>${item.pt}</span>
       </div>
     `;
@@ -380,44 +571,47 @@ function verLetra(letra) {
   });
 }
 
-// Volta para a tela inicial do alfabeto
 function voltarParaMenu() {
   speechSynthesis.cancel();
   viewDetalhes.classList.add('hidden');
   viewMenu.classList.remove('hidden');
+  mainHeader.classList.remove('mini');
   bubbleBen.textContent = "Escolha outra letra para explorar!";
 }
 
-// Executa as vozes e o balão do Ben ao tocar em um card
-async function interagirComPalavra(item) {
+async function interagirComPalavra(item, elementoCard, corDestaque) {
   speechSynthesis.cancel();
   
-  // Atualiza o balão do ursinho
-  bubbleBen.textContent = item.en + " significa " + item.pt + "!";
+  // Gatilho da animação visual de pulo no emoji
+  elementoCard.classList.remove('animar');
+  void elementoCard.offsetWidth; // truque para resetar animação CSS
+  elementoCard.classList.add('animar');
   
-  // Fala em Inglês
+  bubbleBen.textContent = item.en + " em português é " + item.pt + "!";
+  
   await falarTexto(item.en, 'en-US');
-  // Pequena pausa natural
-  await new Promise(r => setTimeout(r, 200));
-  // Fala em Português
+  await new Promise(r => setTimeout(r, 150));
   await falarTexto(item.pt, 'pt-BR');
 }
 
-// Função utilitária de voz oficial da Speech API
 function falarTexto(texto, idioma) {
   return new Promise((resolve) => {
     if (!('speechSynthesis' in window)) { resolve(); return; }
     const utterance = new SpeechSynthesisUtterance(texto);
     utterance.lang = idioma;
-    utterance.rate = 0.82; // Velocidade infantil ideal
-    utterance.pitch = 1.15; // Voz um pouco mais fina/fofa
+    utterance.rate = 0.83; 
+    utterance.pitch = 1.15; 
     utterance.onend = resolve;
     utterance.onerror = resolve;
     speechSynthesis.speak(utterance);
   });
 }
 
-// Inicia o app
+// Função auxiliar para deixar as bordas combinando suavemente com a cor da letra
+function varColorWithAlpha(hex, alpha) {
+  return hex + Math.round(alpha * 255).toString(16).padStart(2, '0');
+}
+
 initMenu();
 </script>
 </body>
